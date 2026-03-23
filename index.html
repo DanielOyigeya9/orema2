@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Orema Global Services | Premium Integrated Services</title>
+  <!-- Google Fonts + Font Awesome CDN -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #fefefe;
+      color: #1e2a3e;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* buttons */
+    .btn {
+      display: inline-block;
+      background-color: #c49a6c;
+      color: white;
+      font-weight: 600;
+      padding: 12px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      letter-spacing: 0.3px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #c49a6c;
+      color: #c49a6c;
+      box-shadow: none;
+    }
+    .btn-outline:hover {
+      background: #c49a6c;
+      color: white;
+    }
+    .btn:hover {
+      background-color: #a87b4e;
+      transform: translateY(-2px);
+    }
+
+    /* header */
+    header {
+      background: white;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      flex-wrap: wrap;
+    }
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #1e2a3e;
+    }
+    .logo span {
+      color: #c49a6c;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #2c3e4e;
+      transition: 0.2s;
+    }
+    .nav-links a:hover {
+      color: #c49a6c;
+    }
+    .contact-header {
+      background: #c49a6c;
+      color: white;
+      padding: 10px 22px;
+      border-radius: 40px;
+      font-weight: 600;
+    }
+    .contact-header:hover {
+      background: #a87b4e;
+      color: white;
+    }
+
+    /* hero */
+    .hero {
+      background: linear-gradient(105deg, #f9f5f0 0%, #ffffff 100%);
+      padding: 70px 0 80px;
+    }
+    .hero-grid {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+    .hero-content {
+      flex: 1;
+    }
+    .hero-content h2 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      color: #4a5b6b;
+      margin-bottom: 32px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: #e9dfd4;
+      color: #c49a6c;
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .hero-image {
+      flex: 1;
+      text-align: center;
+    }
+    .hero-image i {
+      font-size: 13rem;
+      color: #dbbc97;
+      opacity: 0.7;
+    }
+
+    /* services mini grid */
+    .services {
+      padding: 80px 0;
+      background: white;
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .section-title h3 {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .section-title p {
+      color: #5b6f82;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 32px;
+    }
+    .service-card {
+      background: #ffffff;
+      border-radius: 28px;
+      padding: 32px 28px;
+      transition: all 0.3s ease;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+      border: 1px solid #f1ede8;
+      text-align: center;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+    }
+    .service-icon {
+      font-size: 3rem;
+      color: #c49a6c;
+      margin-bottom: 20px;
+    }
+    .service-card h4 {
+      font-size: 1.6rem;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    /* SPOTLIGHT SECTION */
+    .spotlight {
+      padding: 80px 0;
+      background: #fefaf5;
+    }
+    .spotlight-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .spotlight-header h3 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #c49a6c, #9b6e42);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    /* filter bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 48px;
+    }
+    .filter-btn {
+      background: white;
+      border: 1px solid #e2d6cc;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: #4a5b6b;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: #c49a6c;
+      border-color: #c49a6c;
+      color: white;
+    }
+    .spotlight-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 40px;
+    }
+    .spot-card {
+      background: white;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s;
+      position: relative;
+    }
+    .spot-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 45px -12px rgba(0,0,0,0.2);
+    }
+    .card-img {
+      height: 240px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+    }
+    .card-category {
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin: 16px;
+    }
+    .card-content {
+      padding: 24px 24px 20px;
+    }
+    .card-content h4 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .card-content p {
+      color: #5d6f82;
+      margin-bottom: 18px;
+      line-height: 1.4;
+    }
+    .price-tag {
+      font-weight: 800;
+      color: #c49a6c;
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+    /* right side contact reference (floating on card) */
+    .quick-contact {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #1e2a3e;
+      z-index: 2;
+    }
+    .quick-contact i {
+      color: #25D366;
+      font-size: 1rem;
+    }
+    .quick-contact .call-icon {
+      color: #c49a6c;
+    }
+    .quick-contact span {
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    .view-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: none;
+      color: #c49a6c;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-top: 8px;
+      transition: gap 0.2s;
+    }
+    .view-more:hover {
+      gap: 12px;
+      color: #8b5a34;
+    }
+    .no-results {
+      text-align: center;
+      padding: 60px;
+      font-size: 1.2rem;
+      color: #8a9bb0;
+      grid-column: 1 / -1;
+    }
+
+    /* MODAL STYLES */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.2s ease;
+    }
+    .modal-content {
+      background: white;
+      max-width: 550px;
+      width: 90%;
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 30px 50px rgba(0,0,0,0.3);
+      animation: slideUp 0.3s ease;
+    }
+    .modal-img {
+      height: 220px;
+      background-size: cover;
+      background-position: center;
+    }
+    .modal-body {
+      padding: 28px 28px 32px;
+    }
+    .modal-body h3 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+    .modal-body .modal-price {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #c49a6c;
+      margin: 12px 0;
+    }
+    .modal-body .modal-desc {
+      color: #4a5b6b;
+      line-height: 1.5;
+      margin: 16px 0;
+    }
+    .contact-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 24px 0 16px;
+    }
+    .whatsapp-btn, .call-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: #25D366;
+      color: white;
+      padding: 14px 0;
+      border-radius: 60px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+    .call-btn {
+      background: #c49a6c;
+    }
+    .whatsapp-btn:hover {
+      background: #128C7E;
+      transform: scale(1.02);
+    }
+    .call-btn:hover {
+      background: #a87b4e;
+    }
+    .close-modal {
+      background: #e9ecef;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      border-radius: 60px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 12px;
+      color: #2c3e4e;
+    }
+    .close-modal:hover {
+      background: #dee2e6;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* about, cta, footer */
+    .about-section {
+      background: #faf7f2;
+      padding: 80px 0;
+    }
+    .about-flex {
+      display: flex;
+      gap: 50px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .stats {
+      display: flex;
+      gap: 30px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .stat-item h4 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #c49a6c;
+    }
+    .cta {
+      background: linear-gradient(120deg, #1e2a3e 0%, #2c3e4e 100%);
+      color: white;
+      padding: 70px 0;
+      text-align: center;
+    }
+    footer {
+      background: #0f1a24;
+      color: #cddfe7;
+      padding: 50px 0 30px;
+    }
+    .footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .social-icons i {
+      font-size: 1.6rem;
+      margin-right: 18px;
+      cursor: pointer;
+    }
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      border-top: 1px solid #2c3e4e;
+      font-size: 0.85rem;
+    }
+    @media (max-width: 900px) {
+      .navbar { flex-direction: column; gap: 20px; }
+      .hero-content h2 { font-size: 2.3rem; }
+      .spotlight-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="navbar">
+      <div class="logo">
+        <h1>OREMA<span> Global</span></h1>
+        <p style="font-size: 0.75rem; letter-spacing: 1px; color: #c49a6c;">Integrated Services Ltd</p>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#spotlight">Showcase</a></li>
+        <li><a href="#contact" class="contact-header">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="home" class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge"><i class="fas fa-globe-africa"></i> Trusted since 2012</div>
+        <h2>Beyond Boundaries:<br> Real Estate, Cars & Logistics</h2>
+        <p>Orema Global Services delivers premium solutions — from prime properties and luxury vehicles to industrial cleaning and full-scale project management.</p>
+        <a href="#contact" class="btn">Request a quote <i class="fas fa-arrow-right"></i></a>
+        <a href="#services" class="btn-outline btn" style="margin-left: 12px;">Explore services</a>
+      </div>
+      <div class="hero-image">
+        <i class="fas fa-building"></i>
+        <i class="fas fa-car" style="font-size: 9rem; margin-left: -20px;"></i>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="services">
+    <div class="container">
+      <div class="section-title">
+        <h3>What we deliver</h3>
+        <p>Comprehensive 360° solutions across six core verticals — we redefine excellence.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card"><div class="service-icon"><i class="fas fa-home"></i></div><h4>Properties</h4><p>Luxury & commercial real estate, sales, lease, and property management.</p></div>
+        <div class="service-card"><div class="service-icon"><i class="fas fa-car"></i></div><h4>Automobiles</h4><p>New & pre-owned luxury cars, fleet procurement, inspection, and financing.</p></div>
+        <div class="service-card"><div class="service-icon"><i class="fas fa-truck-moving"></i></div><h4>Logistics Services</h4><p>Freight, last-mile delivery, supply chain optimization & warehousing.</p></div>
+        <div class="service-card"><div class="service-icon"><i class="fas fa-broom"></i></div><h4>Industrial Cleaning</h4><p>Deep cleaning, post-construction sanitation, facility maintenance.</p></div>
+        <div class="service-card"><div class="service-icon"><i class="fas fa-chalkboard-user"></i></div><h4>Project Management</h4><p>End-to-end planning, execution, supervision for infrastructure.</p></div>
+        <div class="service-card"><div class="service-icon"><i class="fas fa-draw-polygon"></i></div><h4>Estate Surveying</h4><p>Valuation, feasibility studies, land surveying, statutory compliance.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPOTLIGHT with filter, quick contact badge, and modal popup -->
+  <section id="spotlight" class="spotlight">
+    <div class="container">
+      <div class="spotlight-header">
+        <h3>✨ Spotlight Offerings ✨</h3>
+        <p>Premium listings — each card includes a direct reference number & "View More" popup with WhatsApp & Call-to-Buy</p>
+      </div>
+      <div class="filter-bar" id="filterBar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="properties">Properties</button>
+        <button class="filter-btn" data-filter="automobiles">Cars</button>
+        <button class="filter-btn" data-filter="logistics">Logistics</button>
+        <button class="filter-btn" data-filter="cleaning">Industrial Cleaning</button>
+        <button class="filter-btn" data-filter="project-mgmt">Project Management</button>
+        <button class="filter-btn" data-filter="survey">Estate Survey</button>
+      </div>
+      <div id="spotlightGrid" class="spotlight-grid"></div>
+    </div>
+  </section>
+
+  <section id="about" class="about-section">
+    <div class="container about-flex">
+      <div class="about-text">
+        <h3>More than a service provider — <br> your strategic partner</h3>
+        <p>Orema Global Services merges real estate mastery with automotive excellence, logistics infrastructure, and industrial facility management.</p>
+        <div class="stats"><div class="stat-item"><h4>450+</h4><p>Projects completed</p></div><div class="stat-item"><h4>28</h4><p>Corporate partners</p></div><div class="stat-item"><h4>6</h4><p>Core divisions</p></div></div>
+      </div>
+      <div class="about-img-icon" style="flex:1; text-align:center; background:#e8e0d6; border-radius:48px; padding:40px;"><i class="fas fa-handshake" style="font-size: 6rem; color:#b48b5a;"></i><p style="margin-top:18px; font-weight:600;">Integrated solutions, unified vision</p></div>
+    </div>
+  </section>
+
+  <section id="contact" class="cta">
+    <div class="container">
+      <h3>Let’s build something great together</h3>
+      <p>Reach out for consultations, property viewings, automotive inquiries, or any of our integrated services.</p>
+      <a href="#" class="btn" style="background: #c49a6c; color:white;">+234 (0) 812 345 6789</a>
+      <p style="margin-top: 24px;"><i class="fas fa-envelope"></i> hello@oremaglobalservices.com  |  <i class="fas fa-map-marker-alt"></i> Lagos, Abuja, London</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><h4>OREMA GLOBAL</h4><p>Integrated real estate, automotive, logistics, cleaning, project management & estate surveying.</p><div class="social-icons"><i class="fab fa-facebook-f"></i><i class="fab fa-instagram"></i><i class="fab fa-linkedin-in"></i><i class="fab fa-twitter"></i></div></div>
+      <div class="footer-col"><h4>Services</h4><ul style="list-style:none;"><li>Properties & Leasing</li><li>Luxury Cars</li><li>Logistics & Freight</li><li>Industrial Cleaning</li><li>Project Management</li><li>Estate Survey</li></ul></div>
+      <div class="footer-col"><h4>Contact Info</h4><p><i class="fas fa-phone-alt"></i> +234 701 234 5678</p><p><i class="fas fa-envelope"></i> info@oremaglobal.com</p><p><i class="fas fa-clock"></i> Mon-Fri: 8am - 6pm</p></div>
+    </div>
+    <div class="copyright"><p>© 2025 OREMA Global Services – All rights reserved.</p></div>
+  </div>
+</footer>
+
+<!-- MODAL STRUCTURE (hidden initially) -->
+<div id="detailModal" class="modal">
+  <div class="modal-content">
+    <div id="modalImg" class="modal-img" style="background-image: url('');"></div>
+    <div class="modal-body">
+      <h3 id="modalTitle"></h3>
+      <div id="modalPrice" class="modal-price"></div>
+      <p id="modalDesc" class="modal-desc"></p>
+      <div class="contact-buttons">
+        <a href="#" id="whatsappLink" class="whatsapp-btn" target="_blank"><i class="fab fa-whatsapp fa-lg"></i> WhatsApp to Buy</a>
+        <a href="#" id="callLink" class="call-btn"><i class="fas fa-phone-alt"></i> Call Now</a>
+      </div>
+      <button class="close-modal" id="closeModalBtn">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // --- SPOTLIGHT DATA with reference phone numbers, full details for modal ---
+  const spotlightItems = [
+    { id: 1, title: "Oceanfront Penthouse, VI", desc: "3-bed luxury penthouse with ocean view, private infinity pool, smart home automation, 24/7 concierge.", price: "$1,250,000", img: "https://placehold.co/600x400/e2d5c8/8B5A2B?text=Luxury+Apartment", category: "properties", phone: "+2348123456701", whatsapp: "+2348123456701" },
+    { id: 2, title: "Commercial Complex, Ikeja", desc: "High-yield retail & office spaces, fully leased, prime location, 12% ROI.", price: "$2,400,000", img: "https://placehold.co/600x400/dbcbbd/8B5A2B?text=Commercial+Plaza", category: "properties", phone: "+2348123456702", whatsapp: "+2348123456702" },
+    { id: 3, title: "6-Bed Mansion, Banjola", desc: "Gated community, 24/7 security, landscaped gardens, home theater, gym, staff quarters.", price: "$890,000", img: "https://placehold.co/600x400/e9dfd4/8B5A2B?text=Mansion+Estate", category: "properties", phone: "+2348123456703", whatsapp: "+2348123456703" },
+    { id: 4, title: "Range Rover Autobiography", desc: "2024 Executive SUV, low mileage, panoramic roof, premium leather, V8 engine.", price: "$185,000", img: "https://placehold.co/600x400/e2d5c8/8B5A2B?text=Range+Rover", category: "automobiles", phone: "+2348123456710", whatsapp: "+2348123456710" },
+    { id: 5, title: "Porsche Taycan Turbo S", desc: "Electric performance, 0-60 in 2.6s, brand new, carbon fiber accents.", price: "$198,500", img: "https://placehold.co/600x400/dbcbbd/8B5A2B?text=Porsche+Taycan", category: "automobiles", phone: "+2348123456711", whatsapp: "+2348123456711" },
+    { id: 6, title: "Mercedes-Benz G-Wagon", desc: "AMG V8, off-road package, 2025 model, night package, exclusive interior.", price: "$215,000", img: "https://placehold.co/600x400/e9dfd4/8B5A2B?text=G-Wagon", category: "automobiles", phone: "+2348123456712", whatsapp: "+2348123456712" },
+    { id: 7, title: "End-to-End Freight Solutions", desc: "Air/sea freight, customs clearance, real-time tracking across Africa & EU, dedicated support.", price: "Custom Quote", img: "https://placehold.co/600x400/e2d5c8/8B5A2B?text=Global+Logistics", category: "logistics", phone: "+2348123456720", whatsapp: "+2348123456720" },
+    { id: 8, title: "Last-Mile Delivery Fleet", desc: "Same-day delivery, temperature-controlled vehicles for sensitive goods, 24/7 dispatch.", price: "Enterprise Plan", img: "https://placehold.co/600x400/dbcbbd/8B5A2B?text=Last+Mile", category: "logistics", phone: "+2348123456721", whatsapp: "+2348123456721" },
+    { id: 9, title: "Post-Construction Deep Clean", desc: "Industrial-grade sanitization, debris removal, eco-friendly chemicals, certified operators.", price: "Project-based", img: "https://placehold.co/600x400/e9dfd4/8B5A2B?text=Industrial+Cleaning", category: "cleaning", phone: "+2348123456730", whatsapp: "+2348123456730" },
+    { id: 10, title: "Factory & Warehouse Sanitation", desc: "High-pressure washing, hazardous waste disposal, certified team, regular maintenance plans.", price: "Tailored Contract", img: "https://placehold.co/600x400/e2d5c8/8B5A2B?text=Factory+Cleaning", category: "cleaning", phone: "+2348123456731", whatsapp: "+2348123456731" },
+    { id: 11, title: "Commercial Construction PMO", desc: "Full-cycle management: budgeting, scheduling, contractor coordination, quality control.", price: "Scope Based", img: "https://placehold.co/600x400/dbcbbd/8B5A2B?text=Project+Management", category: "project-mgmt", phone: "+2348123456740", whatsapp: "+2348123456740" },
+    { id: 12, title: "Residential Development Oversight", desc: "From concept to handover, quality assurance, cost control, permits management.", price: "Inquire", img: "https://placehold.co/600x400/e9dfd4/8B5A2B?text=Residential+PM", category: "project-mgmt", phone: "+2348123456741", whatsapp: "+2348123456741" },
+    { id: 13, title: "Comprehensive Land Survey", desc: "Boundary surveys, topographical mapping, GIS integration, statutory compliance.", price: "Consultation Fee", img: "https://placehold.co/600x400/e2d5c8/8B5A2B?text=Land+Survey", category: "survey", phone: "+2348123456750", whatsapp: "+2348123456750" },
+    { id: 14, title: "Property Valuation & Feasibility", desc: "Accurate market valuations, investment analysis, due diligence reports, bankable documents.", price: "Professional Rate", img: "https://placehold.co/600x400/dbcbbd/8B5A2B?text=Valuation", category: "survey", phone: "+2348123456751", whatsapp: "+2348123456751" }
+  ];
+
+  let currentFilter = "all";
+  let modalRef = null;
+
+  function getCategoryIcon(cat) {
+    const map = { properties:'fa-home', automobiles:'fa-car', logistics:'fa-truck', cleaning:'fa-broom', 'project-mgmt':'fa-clipboard-list', survey:'fa-draw-polygon' };
+    return map[cat] || 'fa-star';
+  }
+  function formatCategory(cat) {
+    const map = { properties:'Properties', automobiles:'Cars', logistics:'Logistics', cleaning:'Industrial Cleaning', 'project-mgmt':'Project Management', survey:'Estate Survey' };
+    return map[cat] || cat;
+  }
+
+  function renderSpotlight() {
+    const container = document.getElementById("spotlightGrid");
+    const filtered = currentFilter === "all" ? spotlightItems : spotlightItems.filter(item => item.category === currentFilter);
+    if(filtered.length === 0) {
+      container.innerHTML = `<div class="no-results"><i class="fas fa-filter"></i> No listings match this category. Try another filter!</div>`;
+      return;
+    }
+    let html = "";
+    filtered.forEach(item => {
+      // quick contact number badge on right side
+      html += `
+        <div class="spot-card" data-id="${item.id}">
+          <div class="quick-contact">
+            <i class="fas fa-phone-alt call-icon"></i>
+            <span>${item.phone}</span>
+            <i class="fab fa-whatsapp"></i>
+          </div>
+          <div class="card-img" style="background-image: url('${item.img}'); background-size: cover;">
+            <span class="card-category"><i class="fas ${getCategoryIcon(item.category)}"></i> ${formatCategory(item.category)}</span>
+          </div>
+          <div class="card-content">
+            <h4>${escapeHtml(item.title)}</h4>
+            <p>${escapeHtml(item.desc.substring(0, 80))}...</p>
+            <div class="price-tag">${escapeHtml(item.price)}</div>
+            <button class="view-more" data-id="${item.id}">View More Details <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+      `;
+    });
+    container.innerHTML = html;
+    // attach view more listeners
+    document.querySelectorAll('.view-more').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const id = parseInt(btn.getAttribute('data-id'));
+        const item = spotlightItems.find(i => i.id === id);
+        if(item) openModal(item);
+      });
+    });
+  }
+
+  function openModal(item) {
+    const modal = document.getElementById("detailModal");
+    const modalImg = document.getElementById("modalImg");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalPrice = document.getElementById("modalPrice");
+    const modalDesc = document.getElementById("modalDesc");
+    const whatsappLink = document.getElementById("whatsappLink");
+    const callLink = document.getElementById("callLink");
+    
+    modalImg.style.backgroundImage = `url('${item.img}')`;
+    modalTitle.innerText = item.title;
+    modalPrice.innerText = item.price;
+    modalDesc.innerText = item.desc;
+    // build WhatsApp message
+    const whatsappMsg = `Hello Orema Global, I'm interested in ${item.title} (${item.price}). Please provide more details.`;
+    whatsappLink.href = `https://wa.me/${item.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(whatsappMsg)}`;
+    callLink.href = `tel:${item.phone}`;
+    modal.style.display = "flex";
+  }
+
+  function closeModal() {
+    const modal = document.getElementById("detailModal");
+    modal.style.display = "none";
+  }
+
+  function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+
+  // filter logic
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.getAttribute('data-filter');
+      renderSpotlight();
+    });
+  });
+  
+  // modal close events
+  document.getElementById("closeModalBtn").addEventListener("click", closeModal);
+  window.addEventListener("click", (e) => { if(e.target === document.getElementById("detailModal")) closeModal(); });
+  
+  // smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if(targetId === "#" || targetId === "") return;
+      const targetElem = document.querySelector(targetId);
+      if(targetElem) {
+        e.preventDefault();
+        targetElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+  
+  renderSpotlight();
+</script>
+</body>
+</html>
