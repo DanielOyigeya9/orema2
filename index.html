@@ -2,770 +2,855 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Orema Global Services | Premium Integrated Services</title>
-  <!-- Google Fonts + Font Awesome CDN -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Orema Global - Real Estate & Auto</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #fefefe;
-      color: #1e2a3e;
-      line-height: 1.5;
-      scroll-behavior: smooth;
-    }
-
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 32px;
-    }
-
-    /* buttons */
-    .btn {
-      display: inline-block;
-      background-color: #c49a6c;
-      color: white;
-      font-weight: 600;
-      padding: 12px 28px;
-      border-radius: 40px;
-      text-decoration: none;
-      transition: all 0.25s ease;
-      border: none;
-      cursor: pointer;
-      font-size: 0.95rem;
-      letter-spacing: 0.3px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    }
-    .btn-outline {
-      background: transparent;
-      border: 2px solid #c49a6c;
-      color: #c49a6c;
-      box-shadow: none;
-    }
-    .btn-outline:hover {
-      background: #c49a6c;
-      color: white;
-    }
-    .btn:hover {
-      background-color: #a87b4e;
-      transform: translateY(-2px);
-    }
-
-    /* header */
-    header {
-      background: white;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.05);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 0;
-      flex-wrap: wrap;
-    }
-    .logo h1 {
-      font-size: 1.8rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: #1e2a3e;
-    }
-    .logo span {
-      color: #c49a6c;
-    }
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-    .nav-links a {
-      text-decoration: none;
-      font-weight: 500;
-      color: #2c3e4e;
-      transition: 0.2s;
-    }
-    .nav-links a:hover {
-      color: #c49a6c;
-    }
-    .contact-header {
-      background: #c49a6c;
-      color: white;
-      padding: 10px 22px;
-      border-radius: 40px;
-      font-weight: 600;
-    }
-    .contact-header:hover {
-      background: #a87b4e;
-      color: white;
-    }
-
-    /* hero */
-    .hero {
-      background: linear-gradient(105deg, #f9f5f0 0%, #ffffff 100%);
-      padding: 70px 0 80px;
-    }
-    .hero-grid {
-      display: flex;
-      align-items: center;
-      gap: 50px;
-      flex-wrap: wrap;
-    }
-    .hero-content {
-      flex: 1;
-    }
-    .hero-content h2 {
-      font-size: 3.2rem;
-      font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 20px;
-    }
-    .hero-content p {
-      font-size: 1.2rem;
-      color: #4a5b6b;
-      margin-bottom: 32px;
-    }
-    .hero-badge {
-      display: inline-block;
-      background: #e9dfd4;
-      color: #c49a6c;
-      padding: 6px 18px;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 20px;
-    }
-    .hero-image {
-      flex: 1;
-      text-align: center;
-    }
-    .hero-image i {
-      font-size: 13rem;
-      color: #dbbc97;
-      opacity: 0.7;
-    }
-
-    /* services mini grid */
-    .services {
-      padding: 80px 0;
-      background: white;
-    }
-    .section-title {
-      text-align: center;
-      margin-bottom: 56px;
-    }
-    .section-title h3 {
-      font-size: 2.4rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-    .section-title p {
-      color: #5b6f82;
-      max-width: 640px;
-      margin: 0 auto;
-    }
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 32px;
-    }
-    .service-card {
-      background: #ffffff;
-      border-radius: 28px;
-      padding: 32px 28px;
-      transition: all 0.3s ease;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.05);
-      border: 1px solid #f1ede8;
-      text-align: center;
-    }
-    .service-card:hover {
-      transform: translateY(-8px);
-    }
-    .service-icon {
-      font-size: 3rem;
-      color: #c49a6c;
-      margin-bottom: 20px;
-    }
-    .service-card h4 {
-      font-size: 1.6rem;
-      margin-bottom: 12px;
-      font-weight: 700;
-    }
-
-    /* SPOTLIGHT SECTION */
-    .spotlight {
-      padding: 80px 0;
-      background: #fefaf5;
-    }
-    .spotlight-header {
-      text-align: center;
-      margin-bottom: 48px;
-    }
-    .spotlight-header h3 {
-      font-size: 2.6rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, #c49a6c, #9b6e42);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    /* filter bar */
-    .filter-bar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 14px;
-      margin-bottom: 48px;
-    }
-    .filter-btn {
-      background: white;
-      border: 1px solid #e2d6cc;
-      padding: 10px 24px;
-      border-radius: 50px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s;
-      font-family: inherit;
-      font-size: 0.9rem;
-      color: #4a5b6b;
-    }
-    .filter-btn.active, .filter-btn:hover {
-      background: #c49a6c;
-      border-color: #c49a6c;
-      color: white;
-    }
-    .spotlight-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 40px;
-    }
-    .spot-card {
-      background: white;
-      border-radius: 32px;
-      overflow: hidden;
-      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s;
-      position: relative;
-    }
-    .spot-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 30px 45px -12px rgba(0,0,0,0.2);
-    }
-    .card-img {
-      height: 240px;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-      display: flex;
-      align-items: flex-end;
-      justify-content: flex-start;
-    }
-    .card-category {
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(4px);
-      color: white;
-      padding: 6px 16px;
-      border-radius: 40px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      margin: 16px;
-    }
-    .card-content {
-      padding: 24px 24px 20px;
-    }
-    .card-content h4 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-    .card-content p {
-      color: #5d6f82;
-      margin-bottom: 18px;
-      line-height: 1.4;
-    }
-    .price-tag {
-      font-weight: 800;
-      color: #c49a6c;
-      font-size: 1.2rem;
-      margin-bottom: 16px;
-      display: inline-block;
-    }
-    /* right side contact reference (floating on card) */
-    .quick-contact {
-      position: absolute;
-      top: 16px;
-      right: 16px;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(8px);
-      padding: 8px 14px;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #1e2a3e;
-      z-index: 2;
-    }
-    .quick-contact i {
-      color: #25D366;
-      font-size: 1rem;
-    }
-    .quick-contact .call-icon {
-      color: #c49a6c;
-    }
-    .quick-contact span {
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
-    .view-more {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      border: none;
-      color: #c49a6c;
-      font-weight: 700;
-      cursor: pointer;
-      font-size: 0.9rem;
-      margin-top: 8px;
-      transition: gap 0.2s;
-    }
-    .view-more:hover {
-      gap: 12px;
-      color: #8b5a34;
-    }
-    .no-results {
-      text-align: center;
-      padding: 60px;
-      font-size: 1.2rem;
-      color: #8a9bb0;
-      grid-column: 1 / -1;
-    }
-
-    /* MODAL STYLES */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.8);
-      backdrop-filter: blur(5px);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      animation: fadeIn 0.2s ease;
-    }
-    .modal-content {
-      background: white;
-      max-width: 550px;
-      width: 90%;
-      border-radius: 40px;
-      overflow: hidden;
-      box-shadow: 0 30px 50px rgba(0,0,0,0.3);
-      animation: slideUp 0.3s ease;
-    }
-    .modal-img {
-      height: 220px;
-      background-size: cover;
-      background-position: center;
-    }
-    .modal-body {
-      padding: 28px 28px 32px;
-    }
-    .modal-body h3 {
-      font-size: 1.8rem;
-      margin-bottom: 12px;
-    }
-    .modal-body .modal-price {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: #c49a6c;
-      margin: 12px 0;
-    }
-    .modal-body .modal-desc {
-      color: #4a5b6b;
-      line-height: 1.5;
-      margin: 16px 0;
-    }
-    .contact-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin: 24px 0 16px;
-    }
-    .whatsapp-btn, .call-btn {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      background: #25D366;
-      color: white;
-      padding: 14px 0;
-      border-radius: 60px;
-      text-decoration: none;
-      font-weight: 700;
-      transition: 0.2s;
-    }
-    .call-btn {
-      background: #c49a6c;
-    }
-    .whatsapp-btn:hover {
-      background: #128C7E;
-      transform: scale(1.02);
-    }
-    .call-btn:hover {
-      background: #a87b4e;
-    }
-    .close-modal {
-      background: #e9ecef;
-      border: none;
-      padding: 12px;
-      width: 100%;
-      border-radius: 60px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 12px;
-      color: #2c3e4e;
-    }
-    .close-modal:hover {
-      background: #dee2e6;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes slideUp {
-      from { transform: translateY(30px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    /* about, cta, footer */
-    .about-section {
-      background: #faf7f2;
-      padding: 80px 0;
-    }
-    .about-flex {
-      display: flex;
-      gap: 50px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .stats {
-      display: flex;
-      gap: 30px;
-      margin-top: 30px;
-      flex-wrap: wrap;
-    }
-    .stat-item h4 {
-      font-size: 2rem;
-      font-weight: 800;
-      color: #c49a6c;
-    }
-    .cta {
-      background: linear-gradient(120deg, #1e2a3e 0%, #2c3e4e 100%);
-      color: white;
-      padding: 70px 0;
-      text-align: center;
-    }
-    footer {
-      background: #0f1a24;
-      color: #cddfe7;
-      padding: 50px 0 30px;
-    }
-    .footer-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 40px;
-      margin-bottom: 40px;
-    }
-    .social-icons i {
-      font-size: 1.6rem;
-      margin-right: 18px;
-      cursor: pointer;
-    }
-    .copyright {
-      text-align: center;
-      padding-top: 30px;
-      border-top: 1px solid #2c3e4e;
-      font-size: 0.85rem;
-    }
-    @media (max-width: 900px) {
-      .navbar { flex-direction: column; gap: 20px; }
-      .hero-content h2 { font-size: 2.3rem; }
-      .spotlight-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 600px) {
-      .container { padding: 0 24px; }
-    }
+    /* Custom styling for gallery and smooth transitions */
+    .gallery-thumb { cursor: pointer; transition: transform 0.2s; }
+    .gallery-thumb:hover { transform: scale(1.05); }
+    .page-section { display: none; }
+    .page-section.active { display: block; }
+    .admin-sidebar a { transition: background 0.2s; }
+    .loader { border-top-color: #10b981; }
   </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
 
-<header>
-  <div class="container">
-    <div class="navbar">
-      <div class="logo">
-        <h1>OREMA<span> Global</span></h1>
-        <p style="font-size: 0.75rem; letter-spacing: 1px; color: #c49a6c;">Integrated Services Ltd</p>
-      </div>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#spotlight">Showcase</a></li>
-        <li><a href="#contact" class="contact-header">Contact</a></li>
-      </ul>
+<!-- ========== NAVIGATION ========== -->
+<nav class="bg-white shadow-md sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="text-2xl font-bold text-emerald-600">Orema Global</div>
+    <div class="hidden md:flex space-x-6 text-gray-700">
+      <a href="#/home" class="hover:text-emerald-600 transition nav-link">Home</a>
+      <a href="#/listings" class="hover:text-emerald-600 transition nav-link">Listings</a>
+      <a href="#/services" class="hover:text-emerald-600 transition nav-link">Services</a>
+      <a href="#/contact" class="hover:text-emerald-600 transition nav-link">Contact</a>
+      <a href="#/admin" class="hover:text-emerald-600 transition nav-link font-semibold">Admin</a>
     </div>
+    <button id="mobileMenuBtn" class="md:hidden text-emerald-600 focus:outline-none">☰</button>
   </div>
-</header>
+  <div id="mobileMenu" class="hidden md:hidden px-4 pb-3 space-y-2 bg-white">
+    <a href="#/home" class="block py-1 nav-link">Home</a>
+    <a href="#/listings" class="block py-1 nav-link">Listings</a>
+    <a href="#/services" class="block py-1 nav-link">Services</a>
+    <a href="#/contact" class="block py-1 nav-link">Contact</a>
+    <a href="#/admin" class="block py-1 nav-link font-semibold">Admin</a>
+  </div>
+</nav>
 
-<main>
-  <section id="home" class="hero">
-    <div class="container hero-grid">
-      <div class="hero-content">
-        <div class="hero-badge"><i class="fas fa-globe-africa"></i> Trusted since 2012</div>
-        <h2>Beyond Boundaries:<br> Real Estate, Cars & Logistics</h2>
-        <p>Orema Global Services delivers premium solutions — from prime properties and luxury vehicles to industrial cleaning and full-scale project management.</p>
-        <a href="#contact" class="btn">Request a quote <i class="fas fa-arrow-right"></i></a>
-        <a href="#services" class="btn-outline btn" style="margin-left: 12px;">Explore services</a>
-      </div>
-      <div class="hero-image">
-        <i class="fas fa-building"></i>
-        <i class="fas fa-car" style="font-size: 9rem; margin-left: -20px;"></i>
-      </div>
-    </div>
-  </section>
+<!-- ========== MAIN CONTENT CONTAINERS ========== -->
+<main class="max-w-7xl mx-auto p-4">
+  <!-- HOME PAGE -->
+  <div id="homePage" class="page-section active">
+    <div id="homeContent" class="space-y-10"></div>
+  </div>
 
-  <section id="services" class="services">
-    <div class="container">
-      <div class="section-title">
-        <h3>What we deliver</h3>
-        <p>Comprehensive 360° solutions across six core verticals — we redefine excellence.</p>
-      </div>
-      <div class="services-grid">
-        <div class="service-card"><div class="service-icon"><i class="fas fa-home"></i></div><h4>Properties</h4><p>Luxury & commercial real estate, sales, lease, and property management.</p></div>
-        <div class="service-card"><div class="service-icon"><i class="fas fa-car"></i></div><h4>Automobiles</h4><p>New & pre-owned luxury cars, fleet procurement, inspection, and financing.</p></div>
-        <div class="service-card"><div class="service-icon"><i class="fas fa-truck-moving"></i></div><h4>Logistics Services</h4><p>Freight, last-mile delivery, supply chain optimization & warehousing.</p></div>
-        <div class="service-card"><div class="service-icon"><i class="fas fa-broom"></i></div><h4>Industrial Cleaning</h4><p>Deep cleaning, post-construction sanitation, facility maintenance.</p></div>
-        <div class="service-card"><div class="service-icon"><i class="fas fa-chalkboard-user"></i></div><h4>Project Management</h4><p>End-to-end planning, execution, supervision for infrastructure.</p></div>
-        <div class="service-card"><div class="service-icon"><i class="fas fa-draw-polygon"></i></div><h4>Estate Surveying</h4><p>Valuation, feasibility studies, land surveying, statutory compliance.</p></div>
-      </div>
-    </div>
-  </section>
+  <!-- LISTINGS PAGE -->
+  <div id="listingsPage" class="page-section">
+    <h2 class="text-3xl font-bold mb-6">Our Listings</h2>
+    <div id="listingFilters" class="flex flex-wrap gap-3 mb-6"></div>
+    <div id="listingGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <div id="listingPagination" class="flex justify-center mt-8 space-x-2"></div>
+  </div>
 
-  <!-- SPOTLIGHT with filter, quick contact badge, and modal popup -->
-  <section id="spotlight" class="spotlight">
-    <div class="container">
-      <div class="spotlight-header">
-        <h3>✨ Spotlight Offerings ✨</h3>
-        <p>Premium listings — each card includes a direct reference number & "View More" popup with WhatsApp & Call-to-Buy</p>
-      </div>
-      <div class="filter-bar" id="filterBar">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="properties">Properties</button>
-        <button class="filter-btn" data-filter="automobiles">Cars</button>
-        <button class="filter-btn" data-filter="logistics">Logistics</button>
-        <button class="filter-btn" data-filter="cleaning">Industrial Cleaning</button>
-        <button class="filter-btn" data-filter="project-mgmt">Project Management</button>
-        <button class="filter-btn" data-filter="survey">Estate Survey</button>
-      </div>
-      <div id="spotlightGrid" class="spotlight-grid"></div>
-    </div>
-  </section>
+  <!-- LISTING DETAIL PAGE -->
+  <div id="listingDetailPage" class="page-section">
+    <div id="detailContent"></div>
+  </div>
 
-  <section id="about" class="about-section">
-    <div class="container about-flex">
-      <div class="about-text">
-        <h3>More than a service provider — <br> your strategic partner</h3>
-        <p>Orema Global Services merges real estate mastery with automotive excellence, logistics infrastructure, and industrial facility management.</p>
-        <div class="stats"><div class="stat-item"><h4>450+</h4><p>Projects completed</p></div><div class="stat-item"><h4>28</h4><p>Corporate partners</p></div><div class="stat-item"><h4>6</h4><p>Core divisions</p></div></div>
-      </div>
-      <div class="about-img-icon" style="flex:1; text-align:center; background:#e8e0d6; border-radius:48px; padding:40px;"><i class="fas fa-handshake" style="font-size: 6rem; color:#b48b5a;"></i><p style="margin-top:18px; font-weight:600;">Integrated solutions, unified vision</p></div>
-    </div>
-  </section>
+  <!-- SERVICES PAGE -->
+  <div id="servicesPage" class="page-section">
+    <h2 class="text-3xl font-bold mb-6">Our Services</h2>
+    <div id="servicesGrid" class="grid md:grid-cols-2 gap-6"></div>
+  </div>
 
-  <section id="contact" class="cta">
-    <div class="container">
-      <h3>Let’s build something great together</h3>
-      <p>Reach out for consultations, property viewings, automotive inquiries, or any of our integrated services.</p>
-      <a href="#" class="btn" style="background: #c49a6c; color:white;">+234 (0) 812 345 6789</a>
-      <p style="margin-top: 24px;"><i class="fas fa-envelope"></i> hello@oremaglobalservices.com  |  <i class="fas fa-map-marker-alt"></i> Lagos, Abuja, London</p>
-    </div>
-  </section>
+  <!-- CONTACT PAGE -->
+  <div id="contactPage" class="page-section">
+    <h2 class="text-3xl font-bold mb-6">Contact Us</h2>
+    <div class="grid md:grid-cols-2 gap-8" id="contactContent"></div>
+  </div>
+
+  <!-- ADMIN PAGE -->
+  <div id="adminPage" class="page-section">
+    <div id="adminContainer" class="flex flex-col md:flex-row gap-6"></div>
+  </div>
 </main>
 
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-col"><h4>OREMA GLOBAL</h4><p>Integrated real estate, automotive, logistics, cleaning, project management & estate surveying.</p><div class="social-icons"><i class="fab fa-facebook-f"></i><i class="fab fa-instagram"></i><i class="fab fa-linkedin-in"></i><i class="fab fa-twitter"></i></div></div>
-      <div class="footer-col"><h4>Services</h4><ul style="list-style:none;"><li>Properties & Leasing</li><li>Luxury Cars</li><li>Logistics & Freight</li><li>Industrial Cleaning</li><li>Project Management</li><li>Estate Survey</li></ul></div>
-      <div class="footer-col"><h4>Contact Info</h4><p><i class="fas fa-phone-alt"></i> +234 701 234 5678</p><p><i class="fas fa-envelope"></i> info@oremaglobal.com</p><p><i class="fas fa-clock"></i> Mon-Fri: 8am - 6pm</p></div>
-    </div>
-    <div class="copyright"><p>© 2025 OREMA Global Services – All rights reserved.</p></div>
-  </div>
-</footer>
-
-<!-- MODAL STRUCTURE (hidden initially) -->
-<div id="detailModal" class="modal">
-  <div class="modal-content">
-    <div id="modalImg" class="modal-img" style="background-image: url('');"></div>
-    <div class="modal-body">
-      <h3 id="modalTitle"></h3>
-      <div id="modalPrice" class="modal-price"></div>
-      <p id="modalDesc" class="modal-desc"></p>
-      <div class="contact-buttons">
-        <a href="#" id="whatsappLink" class="whatsapp-btn" target="_blank"><i class="fab fa-whatsapp fa-lg"></i> WhatsApp to Buy</a>
-        <a href="#" id="callLink" class="call-btn"><i class="fas fa-phone-alt"></i> Call Now</a>
-      </div>
-      <button class="close-modal" id="closeModalBtn">Close</button>
-    </div>
-  </div>
+<!-- ========== LOADING OVERLAY ========== -->
+<div id="loadingOverlay" class="fixed inset-0 bg-white bg-opacity-70 flex items-center justify-center hidden z-50">
+  <div class="loader w-12 h-12 border-4 border-gray-200 rounded-full animate-spin"></div>
 </div>
 
 <script>
-  // --- SPOTLIGHT DATA with reference phone numbers, full details for modal ---
-  const spotlightItems = [
-    { id: 1, title: "Oceanfront Penthouse, VI", desc: "3-bed luxury penthouse with ocean view, private infinity pool, smart home automation, 24/7 concierge.", price: "$1,250,000", img: "https://placehold.co/600x400/e2d5c8/8B5A2B?text=Luxury+Apartment", category: "properties", phone: "+2348123456701", whatsapp: "+2348123456701" },
-    { id: 2, title: "Commercial Complex, Ikeja", desc: "High-yield retail & office spaces, fully leased, prime location, 12% ROI.", price: "$2,400,000", img: "https://placehold.co/600x400/dbcbbd/8B5A2B?text=Commercial+Plaza", category: "properties", phone: "+2348123456702", whatsapp: "+2348123456702" },
-    { id: 3, title: "6-Bed Mansion, Banjola", desc: "Gated community, 24/7 security, landscaped gardens, home theater, gym, staff quarters.", price: "$890,000", img: "https://placehold.co/600x400/e9dfd4/8B5A2B?text=Mansion+Estate", category: "properties", phone: "+2348123456703", whatsapp: "+2348123456703" },
-    { id: 4, title: "Range Rover Autobiography", desc: "2024 Executive SUV, low mileage, panoramic roof, premium leather, V8 engine.", price: "$185,000", img: "https://placehold.co/600x400/e2d5c8/8B5A2B?text=Range+Rover", category: "automobiles", phone: "+2348123456710", whatsapp: "+2348123456710" },
-    { id: 5, title: "Porsche Taycan Turbo S", desc: "Electric performance, 0-60 in 2.6s, brand new, carbon fiber accents.", price: "$198,500", img: "https://placehold.co/600x400/dbcbbd/8B5A2B?text=Porsche+Taycan", category: "automobiles", phone: "+2348123456711", whatsapp: "+2348123456711" },
-    { id: 6, title: "Mercedes-Benz G-Wagon", desc: "AMG V8, off-road package, 2025 model, night package, exclusive interior.", price: "$215,000", img: "https://placehold.co/600x400/e9dfd4/8B5A2B?text=G-Wagon", category: "automobiles", phone: "+2348123456712", whatsapp: "+2348123456712" },
-    { id: 7, title: "End-to-End Freight Solutions", desc: "Air/sea freight, customs clearance, real-time tracking across Africa & EU, dedicated support.", price: "Custom Quote", img: "https://placehold.co/600x400/e2d5c8/8B5A2B?text=Global+Logistics", category: "logistics", phone: "+2348123456720", whatsapp: "+2348123456720" },
-    { id: 8, title: "Last-Mile Delivery Fleet", desc: "Same-day delivery, temperature-controlled vehicles for sensitive goods, 24/7 dispatch.", price: "Enterprise Plan", img: "https://placehold.co/600x400/dbcbbd/8B5A2B?text=Last+Mile", category: "logistics", phone: "+2348123456721", whatsapp: "+2348123456721" },
-    { id: 9, title: "Post-Construction Deep Clean", desc: "Industrial-grade sanitization, debris removal, eco-friendly chemicals, certified operators.", price: "Project-based", img: "https://placehold.co/600x400/e9dfd4/8B5A2B?text=Industrial+Cleaning", category: "cleaning", phone: "+2348123456730", whatsapp: "+2348123456730" },
-    { id: 10, title: "Factory & Warehouse Sanitation", desc: "High-pressure washing, hazardous waste disposal, certified team, regular maintenance plans.", price: "Tailored Contract", img: "https://placehold.co/600x400/e2d5c8/8B5A2B?text=Factory+Cleaning", category: "cleaning", phone: "+2348123456731", whatsapp: "+2348123456731" },
-    { id: 11, title: "Commercial Construction PMO", desc: "Full-cycle management: budgeting, scheduling, contractor coordination, quality control.", price: "Scope Based", img: "https://placehold.co/600x400/dbcbbd/8B5A2B?text=Project+Management", category: "project-mgmt", phone: "+2348123456740", whatsapp: "+2348123456740" },
-    { id: 12, title: "Residential Development Oversight", desc: "From concept to handover, quality assurance, cost control, permits management.", price: "Inquire", img: "https://placehold.co/600x400/e9dfd4/8B5A2B?text=Residential+PM", category: "project-mgmt", phone: "+2348123456741", whatsapp: "+2348123456741" },
-    { id: 13, title: "Comprehensive Land Survey", desc: "Boundary surveys, topographical mapping, GIS integration, statutory compliance.", price: "Consultation Fee", img: "https://placehold.co/600x400/e2d5c8/8B5A2B?text=Land+Survey", category: "survey", phone: "+2348123456750", whatsapp: "+2348123456750" },
-    { id: 14, title: "Property Valuation & Feasibility", desc: "Accurate market valuations, investment analysis, due diligence reports, bankable documents.", price: "Professional Rate", img: "https://placehold.co/600x400/dbcbbd/8B5A2B?text=Valuation", category: "survey", phone: "+2348123456751", whatsapp: "+2348123456751" }
+// ==================== GLOBAL STATE & ROUTER ====================
+let db = null;
+let currentPage = 'home';
+let adminLoggedIn = false;
+let adminUser = null;
+
+// Hash routing
+window.addEventListener('hashchange', router);
+window.addEventListener('load', async () => {
+  showLoading(true);
+  await initDatabase();
+  setupNavigation();
+  router();
+  showLoading(false);
+});
+
+function showLoading(show) {
+  document.getElementById('loadingOverlay').classList.toggle('hidden', !show);
+}
+
+function router() {
+  const hash = window.location.hash.slice(1) || '/home';
+  const [path, queryString] = hash.split('?');
+  const params = new URLSearchParams(queryString || '');
+  
+  // Hide all pages
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  
+  if (path === '/home' || path === '/') {
+    document.getElementById('homePage').classList.add('active');
+    loadHomePage();
+  } else if (path === '/listings') {
+    document.getElementById('listingsPage').classList.add('active');
+    loadListingsPage(params);
+  } else if (path === '/listing') {
+    document.getElementById('listingDetailPage').classList.add('active');
+    loadListingDetail(params.get('id'));
+  } else if (path === '/services') {
+    document.getElementById('servicesPage').classList.add('active');
+    loadServicesPage();
+  } else if (path === '/contact') {
+    document.getElementById('contactPage').classList.add('active');
+    loadContactPage();
+  } else if (path === '/admin') {
+    document.getElementById('adminPage').classList.add('active');
+    loadAdminPage();
+  } else {
+    document.getElementById('homePage').classList.add('active');
+    loadHomePage();
+  }
+  currentPage = path;
+}
+
+function setupNavigation() {
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      document.getElementById('mobileMenu').classList.add('hidden');
+    });
+  });
+  document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('hidden');
+  });
+}
+
+// ==================== DATABASE SETUP (sql.js) ====================
+async function initDatabase() {
+  const SQL = await initSqlJs({
+    locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${file}`
+  });
+  
+  // Try to load from localStorage
+  const saved = localStorage.getItem('oremaglobal_db');
+  if (saved) {
+    const uint8 = new Uint8Array(JSON.parse(saved));
+    db = new SQL.Database(uint8);
+  } else {
+    db = new SQL.Database();
+    createSchema();
+    maybeMigrateOldData();
+    saveDatabase();
+  }
+}
+
+function createSchema() {
+  db.run(`CREATE TABLE IF NOT EXISTS listings (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    category TEXT NOT NULL,
+    title TEXT NOT NULL,
+    description TEXT,
+    price REAL,
+    location TEXT,
+    status TEXT DEFAULT 'available',
+    is_featured INTEGER DEFAULT 0,
+    details TEXT,
+    created_at TEXT DEFAULT (datetime('now'))
+  )`);
+  db.run(`CREATE TABLE IF NOT EXISTS listing_images (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    listing_id INTEGER,
+    image_data TEXT,
+    sort_order INTEGER,
+    FOREIGN KEY (listing_id) REFERENCES listings(id) ON DELETE CASCADE
+  )`);
+  db.run(`CREATE TABLE IF NOT EXISTS services (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,
+    description TEXT,
+    icon TEXT,
+    content TEXT
+  )`);
+  db.run(`CREATE TABLE IF NOT EXISTS inquiries (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    listing_id INTEGER,
+    name TEXT,
+    email TEXT,
+    phone TEXT,
+    message TEXT,
+    created_at TEXT DEFAULT (datetime('now'))
+  )`);
+  db.run(`CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE,
+    password_hash TEXT
+  )`);
+  // Insert default admin if not exists
+  const adminExists = db.exec("SELECT id FROM users WHERE username='admin'");
+  if (adminExists.length === 0 || adminExists[0].values.length === 0) {
+    const hash = simpleHash('admin123');
+    db.run("INSERT INTO users (username, password_hash) VALUES (?, ?)", ['admin', hash]);
+  }
+}
+
+function simpleHash(str) {
+  // Use SubtleCrypto when available, otherwise fallback to simple hash
+  if (window.crypto && window.crypto.subtle) {
+    // This is async, so we need to handle it specially; for simplicity we'll use a basic hash
+    // Since we need synchronous for sql.js init, we'll use a basic implementation
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash |= 0;
+    }
+    return 'sha256_' + Math.abs(hash).toString(16);
+  }
+  return 'simple_' + btoa(str);
+}
+
+function verifyPassword(input, hash) {
+  return simpleHash(input) === hash;
+}
+
+function saveDatabase() {
+  if (!db) return;
+  const uint8 = db.export();
+  const arr = Array.from(uint8);
+  localStorage.setItem('oremaglobal_db', JSON.stringify(arr));
+}
+
+function executeQuery(sql, params = []) {
+  try {
+    const results = db.exec(sql, params);
+    if (results.length === 0) return [];
+    const columns = results[0].columns;
+    const values = results[0].values;
+    return values.map(row => {
+      const obj = {};
+      columns.forEach((col, i) => obj[col] = row[i]);
+      return obj;
+    });
+  } catch (e) {
+    console.error('DB error:', e);
+    return [];
+  }
+}
+
+// ==================== MIGRATION OF OLD DATA ====================
+function maybeMigrateOldData() {
+  const count = executeQuery("SELECT COUNT(*) as cnt FROM listings")[0].cnt;
+  if (count > 0) return;
+
+  // Old listings array (extracted from the current site)
+  const oldListings = [
+    {"title":"Luxury 4 Bedroom Duplex","category":"house","price":45000000,"location":"Lekki, Lagos","description":"Modern 4 bedroom duplex with premium finishes...","images":["https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80","https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"],"details":"{\"bedrooms\":4,\"bathrooms\":3,\"squareFeet\":3200,\"yearBuilt\":2021}","status":"available","featured":1},
+    {"title":"Prime Residential Land","category":"land","price":12000000,"location":"Ibeju Lekki, Lagos","description":"500sqm dry land with proper documentation...","images":["https://images.unsplash.com/photo-1500076656116-558758c991c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"],"details":"{\"size\":\"500 sqm\",\"topography\":\"Flat\",\"zoning\":\"Residential\"}","status":"available","featured":1},
+    {"title":"2022 Toyota Camry XLE","category":"car","price":18500000,"location":"Lagos","description":"Clean American spec Toyota Camry with low mileage...","images":["https://images.unsplash.com/photo-1550355291-bbee04a92027?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"],"details":"{\"make\":\"Toyota\",\"model\":\"Camry\",\"year\":2022,\"mileage\":28000,\"condition\":\"Foreign Used\"}","status":"available","featured":0},
+    {"title":"Estate Development - Graceland","category":"estate","price":250000000,"location":"Ajah, Lagos","description":"Fully serviced estate with 24/7 security...","images":["https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"],"details":"{\"totalUnits\":12,\"amenities\":\"Gym, Pool, Generator\",\"totalArea\":\"2.5 Acres\"}","status":"available","featured":1},
+    {"title":"Commercial Plot","category":"land","price":8000000,"location":"Epe, Lagos","description":"Ideal for farm or factory setup...","images":["https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"],"details":"{\"size\":\"1 Acre\",\"topography\":\"Slightly undulating\",\"zoning\":\"Commercial\"}","status":"available","featured":0}
   ];
 
-  let currentFilter = "all";
-  let modalRef = null;
-
-  function getCategoryIcon(cat) {
-    const map = { properties:'fa-home', automobiles:'fa-car', logistics:'fa-truck', cleaning:'fa-broom', 'project-mgmt':'fa-clipboard-list', survey:'fa-draw-polygon' };
-    return map[cat] || 'fa-star';
-  }
-  function formatCategory(cat) {
-    const map = { properties:'Properties', automobiles:'Cars', logistics:'Logistics', cleaning:'Industrial Cleaning', 'project-mgmt':'Project Management', survey:'Estate Survey' };
-    return map[cat] || cat;
-  }
-
-  function renderSpotlight() {
-    const container = document.getElementById("spotlightGrid");
-    const filtered = currentFilter === "all" ? spotlightItems : spotlightItems.filter(item => item.category === currentFilter);
-    if(filtered.length === 0) {
-      container.innerHTML = `<div class="no-results"><i class="fas fa-filter"></i> No listings match this category. Try another filter!</div>`;
-      return;
-    }
-    let html = "";
-    filtered.forEach(item => {
-      // quick contact number badge on right side
-      html += `
-        <div class="spot-card" data-id="${item.id}">
-          <div class="quick-contact">
-            <i class="fas fa-phone-alt call-icon"></i>
-            <span>${item.phone}</span>
-            <i class="fab fa-whatsapp"></i>
-          </div>
-          <div class="card-img" style="background-image: url('${item.img}'); background-size: cover;">
-            <span class="card-category"><i class="fas ${getCategoryIcon(item.category)}"></i> ${formatCategory(item.category)}</span>
-          </div>
-          <div class="card-content">
-            <h4>${escapeHtml(item.title)}</h4>
-            <p>${escapeHtml(item.desc.substring(0, 80))}...</p>
-            <div class="price-tag">${escapeHtml(item.price)}</div>
-            <button class="view-more" data-id="${item.id}">View More Details <i class="fas fa-arrow-right"></i></button>
-          </div>
-        </div>
-      `;
-    });
-    container.innerHTML = html;
-    // attach view more listeners
-    document.querySelectorAll('.view-more').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const id = parseInt(btn.getAttribute('data-id'));
-        const item = spotlightItems.find(i => i.id === id);
-        if(item) openModal(item);
+  oldListings.forEach(listing => {
+    const details = listing.details || '{}';
+    db.run("INSERT INTO listings (category, title, description, price, location, status, is_featured, details) VALUES (?,?,?,?,?,?,?,?)",
+      [listing.category, listing.title, listing.description, listing.price, listing.location, listing.status || 'available', listing.featured || 0, details]);
+    const id = db.exec("SELECT last_insert_rowid()")[0].values[0][0];
+    if (listing.images && listing.images.length) {
+      listing.images.slice(0,5).forEach((img, idx) => {
+        db.run("INSERT INTO listing_images (listing_id, image_data, sort_order) VALUES (?,?,?)", [id, img, idx]);
       });
-    });
-  }
-
-  function openModal(item) {
-    const modal = document.getElementById("detailModal");
-    const modalImg = document.getElementById("modalImg");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalPrice = document.getElementById("modalPrice");
-    const modalDesc = document.getElementById("modalDesc");
-    const whatsappLink = document.getElementById("whatsappLink");
-    const callLink = document.getElementById("callLink");
-    
-    modalImg.style.backgroundImage = `url('${item.img}')`;
-    modalTitle.innerText = item.title;
-    modalPrice.innerText = item.price;
-    modalDesc.innerText = item.desc;
-    // build WhatsApp message
-    const whatsappMsg = `Hello Orema Global, I'm interested in ${item.title} (${item.price}). Please provide more details.`;
-    whatsappLink.href = `https://wa.me/${item.whatsapp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(whatsappMsg)}`;
-    callLink.href = `tel:${item.phone}`;
-    modal.style.display = "flex";
-  }
-
-  function closeModal() {
-    const modal = document.getElementById("detailModal");
-    modal.style.display = "none";
-  }
-
-  function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
-
-  // filter logic
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentFilter = btn.getAttribute('data-filter');
-      renderSpotlight();
-    });
+    }
   });
-  
-  // modal close events
-  document.getElementById("closeModalBtn").addEventListener("click", closeModal);
-  window.addEventListener("click", (e) => { if(e.target === document.getElementById("detailModal")) closeModal(); });
-  
-  // smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      const targetId = this.getAttribute('href');
-      if(targetId === "#" || targetId === "") return;
-      const targetElem = document.querySelector(targetId);
-      if(targetElem) {
-        e.preventDefault();
-        targetElem.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
+
+  // Services data
+  const servicesData = [
+    {title:"Land Survey", description:"Accurate boundary and topographic surveys using latest GPS tech.", icon:"🗺️", content:"We provide detailed land survey reports compliant with all regulations."},
+    {title:"Land Management", description:"Complete land documentation, processing and advisory.", icon:"📋", content:"From acquisition to title perfection, we handle it all."},
+    {title:"Property Documentation", description:"Legal documentation for your peace of mind.", icon:"📜", content:"Title search, deed of assignment, governor's consent processing."},
+    {title:"Real Estate Sales", description:"Buy and sell lands, houses and estates with confidence.", icon:"🏡", content:"We connect buyers with verified properties across Nigeria."},
+    {title:"Auto Sales", description:"Quality used cars carefully inspected and imported.", icon:"🚗", content:"All vehicles undergo thorough inspection before delivery."},
+    {title:"Investment Advisory", description:"Expert guidance on real estate investment.", icon:"📊", content:"Maximize ROI with our data-driven advisory services."}
+  ];
+  servicesData.forEach(s => {
+    db.run("INSERT INTO services (title, description, icon, content) VALUES (?,?,?,?)", [s.title, s.description, s.icon, s.content]);
   });
-  
-  renderSpotlight();
+
+  saveDatabase();
+}
+
+// ==================== HOME PAGE ====================
+function loadHomePage() {
+  const featured = executeQuery("SELECT * FROM listings WHERE is_featured=1 AND status='available' LIMIT 3");
+  const stats = {
+    properties: executeQuery("SELECT COUNT(*) as cnt FROM listings WHERE category IN ('land','house','estate')")[0].cnt,
+    vehicles: executeQuery("SELECT COUNT(*) as cnt FROM listings WHERE category='car'")[0].cnt,
+    clients: 150
+  };
+  const services = executeQuery("SELECT * FROM services LIMIT 4");
+
+  document.getElementById('homeContent').innerHTML = `
+    <section class="text-center py-16 bg-emerald-50 rounded-2xl">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">Welcome to Orema Global</h1>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">Your trusted partner in real estate and auto sales. We offer lands, houses, estates, vehicles, land surveying, and full property management services.</p>
+      <div class="mt-6 flex justify-center gap-4">
+        <a href="#/listings" class="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-full transition">View Listings</a>
+        <a href="#/services" class="border border-emerald-500 text-emerald-600 px-6 py-3 rounded-full hover:bg-emerald-50 transition">Our Services</a>
+      </div>
+    </section>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+      <div class="bg-white p-4 rounded-xl shadow"><span class="text-2xl font-bold text-emerald-600">${stats.properties}+</span><p class="text-gray-500">Properties</p></div>
+      <div class="bg-white p-4 rounded-xl shadow"><span class="text-2xl font-bold text-emerald-600">${stats.vehicles}+</span><p class="text-gray-500">Vehicles</p></div>
+      <div class="bg-white p-4 rounded-xl shadow"><span class="text-2xl font-bold text-emerald-600">${stats.clients}+</span><p class="text-gray-500">Happy Clients</p></div>
+      <div class="bg-white p-4 rounded-xl shadow"><span class="text-2xl font-bold text-emerald-600">6</span><p class="text-gray-500">Services</p></div>
+    </div>
+    <div>
+      <h3 class="text-2xl font-bold mb-4">Featured Listings</h3>
+      <div class="grid md:grid-cols-3 gap-6" id="featuredGrid"></div>
+    </div>
+    <div>
+      <h3 class="text-2xl font-bold mb-4">Our Services</h3>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="servicesPreview"></div>
+    </div>
+  `;
+  renderFeatured(featured);
+  renderServicesPreview(services);
+}
+
+function renderFeatured(listings) {
+  const grid = document.getElementById('featuredGrid');
+  if (!grid) return;
+  grid.innerHTML = listings.map(l => {
+    const img = getFirstImage(l.id);
+    return `<div class="bg-white rounded-xl shadow overflow-hidden cursor-pointer" onclick="window.location.href='#/listing?id=${l.id}'">
+      <img src="${img || 'https://via.placeholder.com/400x250'}" class="w-full h-48 object-cover" alt="${l.title}">
+      <div class="p-4"><span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded">${l.category.toUpperCase()}</span>
+      <h4 class="font-semibold mt-2">${l.title}</h4><p class="text-emerald-600 font-bold">₦${Number(l.price).toLocaleString()}</p>
+      <p class="text-gray-500 text-sm">${l.location}</p></div>
+    </div>`;
+  }).join('');
+}
+
+function getFirstImage(listingId) {
+  const imgs = executeQuery("SELECT image_data FROM listing_images WHERE listing_id=? ORDER BY sort_order LIMIT 1", [listingId]);
+  return imgs.length ? imgs[0].image_data : null;
+}
+
+function renderServicesPreview(services) {
+  const cont = document.getElementById('servicesPreview');
+  if (!cont) return;
+  cont.innerHTML = services.map(s => `
+    <div class="bg-white p-4 rounded-xl shadow text-center">
+      <div class="text-4xl">${s.icon || '🔧'}</div><h4 class="font-semibold mt-2">${s.title}</h4>
+      <p class="text-sm text-gray-500">${s.description}</p>
+    </div>`).join('');
+}
+
+// ==================== LISTINGS PAGE ====================
+let listingFilters = { category: '', minPrice: '', maxPrice: '', location: '', status: 'available' };
+let currentListingPage = 1;
+const perPage = 6;
+
+function loadListingsPage(params) {
+  listingFilters.category = params.get('category') || '';
+  listingFilters.minPrice = params.get('min') || '';
+  listingFilters.maxPrice = params.get('max') || '';
+  listingFilters.location = params.get('location') || '';
+  listingFilters.status = params.get('status') || 'available';
+  currentListingPage = parseInt(params.get('page')) || 1;
+  renderListingFilters();
+  fetchAndRenderListings();
+}
+
+function renderListingFilters() {
+  document.getElementById('listingFilters').innerHTML = `
+    <select id="filterCategory" class="border rounded p-2"><option value="">All Categories</option><option value="land">Land</option><option value="house">Houses</option><option value="estate">Estates</option><option value="car">Vehicles</option></select>
+    <input type="number" id="filterMinPrice" placeholder="Min Price" class="border rounded p-2 w-28" value="${listingFilters.minPrice}">
+    <input type="number" id="filterMaxPrice" placeholder="Max Price" class="border rounded p-2 w-28" value="${listingFilters.maxPrice}">
+    <input type="text" id="filterLocation" placeholder="Location" class="border rounded p-2 w-36" value="${listingFilters.location}">
+    <select id="filterStatus" class="border rounded p-2"><option value="available">Available</option><option value="sold">Sold</option><option value="">All Status</option></select>
+    <button onclick="applyFilters()" class="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600">Apply</button>
+  `;
+  document.getElementById('filterCategory').value = listingFilters.category;
+  document.getElementById('filterStatus').value = listingFilters.status;
+}
+
+function applyFilters() {
+  listingFilters.category = document.getElementById('filterCategory').value;
+  listingFilters.minPrice = document.getElementById('filterMinPrice').value;
+  listingFilters.maxPrice = document.getElementById('filterMaxPrice').value;
+  listingFilters.location = document.getElementById('filterLocation').value;
+  listingFilters.status = document.getElementById('filterStatus').value;
+  currentListingPage = 1;
+  fetchAndRenderListings();
+  // Update URL hash
+  const params = new URLSearchParams();
+  if (listingFilters.category) params.set('category', listingFilters.category);
+  if (listingFilters.minPrice) params.set('min', listingFilters.minPrice);
+  if (listingFilters.maxPrice) params.set('max', listingFilters.maxPrice);
+  if (listingFilters.location) params.set('location', listingFilters.location);
+  if (listingFilters.status !== 'available') params.set('status', listingFilters.status);
+  window.location.hash = `/listings?${params.toString()}`;
+}
+
+function fetchAndRenderListings() {
+  let where = "WHERE 1=1";
+  const params = [];
+  if (listingFilters.category) { where += " AND category=?"; params.push(listingFilters.category); }
+  if (listingFilters.minPrice) { where += " AND price >= ?"; params.push(Number(listingFilters.minPrice)); }
+  if (listingFilters.maxPrice) { where += " AND price <= ?"; params.push(Number(listingFilters.maxPrice)); }
+  if (listingFilters.location) { where += " AND location LIKE ?"; params.push(`%${listingFilters.location}%`); }
+  if (listingFilters.status) { where += " AND status=?"; params.push(listingFilters.status); }
+
+  const countRow = executeQuery(`SELECT COUNT(*) as cnt FROM listings ${where}`, params);
+  const total = countRow[0].cnt;
+  const totalPages = Math.ceil(total / perPage);
+  const offset = (currentListingPage - 1) * perPage;
+
+  const listings = executeQuery(`SELECT * FROM listings ${where} ORDER BY created_at DESC LIMIT ? OFFSET ?`, [...params, perPage, offset]);
+
+  const grid = document.getElementById('listingGrid');
+  grid.innerHTML = listings.map(l => {
+    const img = getFirstImage(l.id);
+    return `<div class="bg-white rounded-xl shadow overflow-hidden cursor-pointer" onclick="window.location.href='#/listing?id=${l.id}'">
+      <img src="${img || 'https://via.placeholder.com/400x250'}" class="w-full h-48 object-cover" alt="${l.title}">
+      <div class="p-4"><span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded">${l.category.toUpperCase()}</span>
+      <h4 class="font-semibold mt-2">${l.title}</h4><p class="text-emerald-600 font-bold">₦${Number(l.price).toLocaleString()}</p>
+      <p class="text-gray-500 text-sm">${l.location}</p>
+      <span class="text-xs ${l.status==='sold'?'text-red-500':'text-green-600'}">${l.status}</span></div>
+    </div>`;
+  }).join('');
+
+  const pagDiv = document.getElementById('listingPagination');
+  pagDiv.innerHTML = '';
+  for (let i = 1; i <= totalPages; i++) {
+    pagDiv.innerHTML += `<button onclick="goToListingPage(${i})" class="px-3 py-1 rounded ${i===currentListingPage?'bg-emerald-500 text-white':'bg-gray-200'}">${i}</button>`;
+  }
+}
+
+function goToListingPage(page) {
+  currentListingPage = page;
+  const params = new URLSearchParams(window.location.hash.split('?')[1] || '');
+  params.set('page', page);
+  window.location.hash = `/listings?${params.toString()}`;
+  fetchAndRenderListings();
+}
+
+// ==================== LISTING DETAIL PAGE ====================
+function loadListingDetail(id) {
+  if (!id) { window.location.hash = '#/listings'; return; }
+  const listing = executeQuery("SELECT * FROM listings WHERE id=?", [id])[0];
+  if (!listing) { document.getElementById('detailContent').innerHTML = '<p>Listing not found.</p>'; return; }
+  const images = executeQuery("SELECT * FROM listing_images WHERE listing_id=? ORDER BY sort_order", [id]);
+  const detailsObj = JSON.parse(listing.details || '{}');
+  const detailKeys = Object.keys(detailsObj);
+  document.getElementById('detailContent').innerHTML = `
+    <button onclick="history.back()" class="text-emerald-600 mb-4">&larr; Back</button>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div>
+        <img id="mainImage" src="${images.length ? images[0].image_data : 'https://via.placeholder.com/600x400'}" class="w-full h-80 object-cover rounded-xl">
+        <div class="flex mt-2 space-x-2">${images.map((img,i) => `<img src="${img.image_data}" class="gallery-thumb w-16 h-16 object-cover rounded ${i===0?'ring-2 ring-emerald-500':''}" onclick="document.getElementById('mainImage').src='${img.image_data}'; this.parentElement.querySelectorAll('img').forEach(t=>t.classList.remove('ring-2','ring-emerald-500')); this.classList.add('ring-2','ring-emerald-500')">`).join('')}</div>
+      </div>
+      <div>
+        <span class="text-sm bg-emerald-100 text-emerald-700 px-2 py-1 rounded">${listing.category.toUpperCase()}</span>
+        <h2 class="text-3xl font-bold mt-2">${listing.title}</h2>
+        <p class="text-2xl text-emerald-600 font-bold mt-2">₦${Number(listing.price).toLocaleString()}</p>
+        <p class="text-gray-600">${listing.location}</p>
+        <p class="mt-4">${listing.description}</p>
+        ${detailKeys.length ? `<div class="mt-4"><h4 class="font-semibold">Specifications</h4><table class="w-full text-sm">${detailKeys.map(k => `<tr><td class="pr-4 py-1 font-medium">${k}</td><td>${detailsObj[k]}</td></tr>`).join('')}</table></div>` : ''}
+        <div class="mt-6 bg-gray-50 p-4 rounded-xl">
+          <h4 class="font-semibold mb-2">Inquire about this ${listing.category}</h4>
+          <input id="inqName" placeholder="Your Name" class="w-full border p-2 rounded mb-2">
+          <input id="inqEmail" placeholder="Email" class="w-full border p-2 rounded mb-2">
+          <input id="inqPhone" placeholder="Phone" class="w-full border p-2 rounded mb-2">
+          <textarea id="inqMessage" placeholder="Message" class="w-full border p-2 rounded mb-2"></textarea>
+          <button onclick="submitInquiry(${listing.id})" class="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600">Send Inquiry</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function submitInquiry(listingId) {
+  const name = document.getElementById('inqName').value.trim();
+  const email = document.getElementById('inqEmail').value.trim();
+  const phone = document.getElementById('inqPhone').value.trim();
+  const message = document.getElementById('inqMessage').value.trim();
+  if (!name || !email || !message) { alert('Please fill name, email and message'); return; }
+  db.run("INSERT INTO inquiries (listing_id, name, email, phone, message) VALUES (?,?,?,?,?)", [listingId, name, email, phone, message]);
+  saveDatabase();
+  alert('Inquiry sent! We will get back to you.');
+  document.getElementById('inqName').value = '';
+  document.getElementById('inqEmail').value = '';
+  document.getElementById('inqPhone').value = '';
+  document.getElementById('inqMessage').value = '';
+}
+
+// ==================== SERVICES PAGE ====================
+function loadServicesPage() {
+  const services = executeQuery("SELECT * FROM services");
+  document.getElementById('servicesGrid').innerHTML = services.map(s => `
+    <div class="bg-white p-6 rounded-xl shadow">
+      <div class="text-4xl">${s.icon || '🔧'}</div>
+      <h3 class="text-xl font-bold mt-2">${s.title}</h3>
+      <p class="text-gray-600">${s.description}</p>
+      <p class="mt-2 text-sm text-gray-500">${s.content}</p>
+    </div>`).join('');
+}
+
+// ==================== CONTACT PAGE ====================
+function loadContactPage() {
+  document.getElementById('contactContent').innerHTML = `
+    <div>
+      <h3 class="text-xl font-semibold mb-3">Get in Touch</h3>
+      <p><strong>Address:</strong> 15 Orema Street, Lekki, Lagos, Nigeria</p>
+      <p><strong>Phone:</strong> +234 800 000 0000</p>
+      <p><strong>Email:</strong> info@oremaglobal.com</p>
+      <div class="mt-4 h-64 bg-gray-200 rounded">Map Placeholder</div>
+    </div>
+    <div class="bg-white p-6 rounded-xl shadow">
+      <h3 class="text-xl font-semibold mb-3">Send a Message</h3>
+      <input id="contactName" placeholder="Name" class="w-full border p-2 rounded mb-2">
+      <input id="contactEmail" placeholder="Email" class="w-full border p-2 rounded mb-2">
+      <textarea id="contactMsg" placeholder="Your message" class="w-full border p-2 rounded mb-2"></textarea>
+      <button onclick="submitContact()" class="bg-emerald-500 text-white px-4 py-2 rounded">Send</button>
+    </div>`;
+}
+
+function submitContact() {
+  const name = document.getElementById('contactName').value.trim();
+  const email = document.getElementById('contactEmail').value.trim();
+  const msg = document.getElementById('contactMsg').value.trim();
+  if (!name || !email || !msg) { alert('Fill all fields'); return; }
+  db.run("INSERT INTO inquiries (name, email, message) VALUES (?,?,?)", [name, email, msg]);
+  saveDatabase();
+  alert('Message sent!');
+}
+
+// ==================== ADMIN PANEL ====================
+function loadAdminPage() {
+  if (!adminLoggedIn) {
+    document.getElementById('adminContainer').innerHTML = `
+      <div class="max-w-md mx-auto bg-white p-6 rounded-xl shadow mt-10">
+        <h2 class="text-2xl font-bold mb-4">Admin Login</h2>
+        <input id="adminUsername" placeholder="Username" class="w-full border p-2 rounded mb-2" value="admin">
+        <input id="adminPassword" type="password" placeholder="Password" class="w-full border p-2 rounded mb-2">
+        <button onclick="adminLogin()" class="w-full bg-emerald-500 text-white py-2 rounded hover:bg-emerald-600">Login</button>
+      </div>`;
+  } else {
+    renderAdminDashboard();
+  }
+}
+
+function adminLogin() {
+  const username = document.getElementById('adminUsername').value.trim();
+  const password = document.getElementById('adminPassword').value;
+  const user = executeQuery("SELECT * FROM users WHERE username=?", [username])[0];
+  if (user && verifyPassword(password, user.password_hash)) {
+    adminLoggedIn = true;
+    adminUser = user;
+    renderAdminDashboard();
+  } else {
+    alert('Invalid credentials');
+  }
+}
+
+function renderAdminDashboard() {
+  const totalListings = executeQuery("SELECT COUNT(*) as cnt FROM listings")[0].cnt;
+  const inquiries = executeQuery("SELECT COUNT(*) as cnt FROM inquiries")[0].cnt;
+  document.getElementById('adminContainer').innerHTML = `
+    <div class="w-full md:w-64 bg-white shadow rounded-xl p-4 admin-sidebar">
+      <h3 class="font-bold text-lg mb-4">Admin Panel</h3>
+      <a href="#" onclick="showAdminSection('listings')" class="block py-2 px-3 rounded hover:bg-emerald-50 mb-1">📋 Manage Listings</a>
+      <a href="#" onclick="showAdminSection('inquiries')" class="block py-2 px-3 rounded hover:bg-emerald-50 mb-1">📩 Inquiries</a>
+      <a href="#" onclick="exportDatabase()" class="block py-2 px-3 rounded hover:bg-emerald-50 mb-1">💾 Export DB</a>
+      <a href="#" onclick="adminLogout()" class="block py-2 px-3 rounded hover:bg-red-50 text-red-600">🚪 Logout</a>
+    </div>
+    <div class="flex-1 bg-white rounded-xl shadow p-6" id="adminContentArea">
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div class="bg-emerald-50 p-4 rounded"><span class="text-2xl font-bold">${totalListings}</span><p>Total Listings</p></div>
+        <div class="bg-blue-50 p-4 rounded"><span class="text-2xl font-bold">${inquiries}</span><p>Inquiries</p></div>
+      </div>
+      <p>Select a section from the sidebar.</p>
+    </div>`;
+  window.currentAdminSection = 'listings';
+  showAdminSection('listings');
+}
+
+function showAdminSection(section) {
+  window.currentAdminSection = section;
+  const area = document.getElementById('adminContentArea');
+  if (!area) return;
+  if (section === 'listings') {
+    const listings = executeQuery("SELECT * FROM listings ORDER BY created_at DESC");
+    area.innerHTML = `<h3 class="text-xl font-bold mb-4">All Listings</h3>
+    <button onclick="openListingForm()" class="mb-4 bg-emerald-500 text-white px-4 py-2 rounded">+ Add New Listing</button>
+    <div class="overflow-x-auto"><table class="w-full text-sm"><thead><tr class="bg-gray-100"><th>ID</th><th>Title</th><th>Category</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody>${listings.map(l => `<tr><td>${l.id}</td><td>${l.title}</td><td>${l.category}</td><td>₦${Number(l.price).toLocaleString()}</td><td>${l.status}</td>
+    <td><button onclick="editListing(${l.id})" class="text-blue-600 mr-2">Edit</button><button onclick="deleteListing(${l.id})" class="text-red-600">Del</button></td></tr>`).join('')}</tbody></table></div>`;
+  } else if (section === 'inquiries') {
+    const inqs = executeQuery("SELECT * FROM inquiries ORDER BY created_at DESC");
+    area.innerHTML = `<h3 class="text-xl font-bold mb-4">Inquiries</h3>
+    <div class="space-y-4">${inqs.map(i => `<div class="border p-3 rounded"><p><strong>${i.name}</strong> (${i.email})</p><p>${i.message}</p><small>${i.created_at}</small></div>`).join('')}</div>`;
+  }
+}
+
+function openListingForm(listing = null) {
+  const isEdit = !!listing;
+  const title = isEdit ? 'Edit Listing' : 'Add New Listing';
+  const formHtml = `
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" id="listingFormOverlay">
+      <div class="bg-white rounded-xl p-6 max-w-2xl w-full max-h-screen overflow-y-auto">
+        <h2 class="text-2xl font-bold mb-4">${title}</h2>
+        <input id="lfTitle" placeholder="Title" class="w-full border p-2 rounded mb-2" value="${isEdit ? listing.title : ''}">
+        <select id="lfCategory" class="w-full border p-2 rounded mb-2" onchange="toggleDetailFields()">
+          <option value="land" ${isEdit && listing.category==='land'?'selected':''}>Land</option>
+          <option value="house" ${isEdit && listing.category==='house'?'selected':''}>House</option>
+          <option value="estate" ${isEdit && listing.category==='estate'?'selected':''}>Estate</option>
+          <option value="car" ${isEdit && listing.category==='car'?'selected':''}>Vehicle</option>
+        </select>
+        <textarea id="lfDescription" placeholder="Description" class="w-full border p-2 rounded mb-2">${isEdit ? listing.description : ''}</textarea>
+        <input id="lfPrice" type="number" placeholder="Price" class="w-full border p-2 rounded mb-2" value="${isEdit ? listing.price : ''}">
+        <input id="lfLocation" placeholder="Location" class="w-full border p-2 rounded mb-2" value="${isEdit ? listing.location : ''}">
+        <select id="lfStatus" class="w-full border p-2 rounded mb-2">
+          <option value="available" ${isEdit && listing.status==='available'?'selected':''}>Available</option>
+          <option value="sold" ${isEdit && listing.status==='sold'?'selected':''}>Sold</option>
+        </select>
+        <label class="flex items-center mb-2"><input type="checkbox" id="lfFeatured" ${isEdit && listing.is_featured?'checked':''}> Featured listing</label>
+        <div id="dynamicDetailFields" class="mb-4"></div>
+        <div id="photoUploadSection" class="mb-4">
+          <label class="font-medium">Photos (max 5)</label>
+          <div id="photoPreviews" class="flex flex-wrap gap-2 mt-2"></div>
+          <input type="file" id="photoInput" accept="image/*" class="mt-2" onchange="addPhotoFromInput()">
+        </div>
+        <div class="flex justify-end gap-2">
+          <button onclick="closeListingForm()" class="px-4 py-2 border rounded">Cancel</button>
+          <button onclick="saveListing(${isEdit ? listing.id : 'null'})" class="px-4 py-2 bg-emerald-500 text-white rounded">Save</button>
+        </div>
+      </div>
+    </div>`;
+  document.body.insertAdjacentHTML('beforeend', formHtml);
+  // Initialize photo array from existing images if editing
+  window.currentPhotos = isEdit ? executeQuery("SELECT image_data FROM listing_images WHERE listing_id=? ORDER BY sort_order", [listing.id]).map(r => r.image_data) : [];
+  renderPhotoPreviews();
+  toggleDetailFields();
+  if (isEdit) {
+    // prefill detail fields based on category
+    const details = JSON.parse(listing.details || '{}');
+    setTimeout(() => {
+      fillDetailFields(listing.category, details);
+    }, 10);
+  }
+}
+
+function toggleDetailFields() {
+  const cat = document.getElementById('lfCategory')?.value;
+  const container = document.getElementById('dynamicDetailFields');
+  if (!container) return;
+  let html = '';
+  if (cat === 'land') {
+    html = `<input id="detSize" placeholder="Size (e.g., 500 sqm)" class="w-full border p-2 rounded mb-2">
+    <input id="detZoning" placeholder="Zoning" class="w-full border p-2 rounded mb-2">
+    <input id="detTopography" placeholder="Topography" class="w-full border p-2 rounded mb-2">`;
+  } else if (cat === 'house') {
+    html = `<input id="detBedrooms" type="number" placeholder="Bedrooms" class="w-full border p-2 rounded mb-2">
+    <input id="detBathrooms" type="number" placeholder="Bathrooms" class="w-full border p-2 rounded mb-2">
+    <input id="detSquareFeet" placeholder="Square Feet" class="w-full border p-2 rounded mb-2">
+    <input id="detYearBuilt" placeholder="Year Built" class="w-full border p-2 rounded mb-2">`;
+  } else if (cat === 'estate') {
+    html = `<input id="detTotalUnits" placeholder="Total Units" class="w-full border p-2 rounded mb-2">
+    <input id="detAmenities" placeholder="Amenities" class="w-full border p-2 rounded mb-2">
+    <input id="detTotalArea" placeholder="Total Area" class="w-full border p-2 rounded mb-2">`;
+  } else if (cat === 'car') {
+    html = `<input id="detMake" placeholder="Make" class="w-full border p-2 rounded mb-2">
+    <input id="detModel" placeholder="Model" class="w-full border p-2 rounded mb-2">
+    <input id="detYear" type="number" placeholder="Year" class="w-full border p-2 rounded mb-2">
+    <input id="detMileage" placeholder="Mileage" class="w-full border p-2 rounded mb-2">
+    <input id="detCondition" placeholder="Condition" class="w-full border p-2 rounded mb-2">`;
+  }
+  container.innerHTML = html;
+}
+
+function fillDetailFields(category, details) {
+  if (category === 'land') {
+    document.getElementById('detSize').value = details.size || '';
+    document.getElementById('detZoning').value = details.zoning || '';
+    document.getElementById('detTopography').value = details.topography || '';
+  } else if (category === 'house') {
+    document.getElementById('detBedrooms').value = details.bedrooms || '';
+    document.getElementById('detBathrooms').value = details.bathrooms || '';
+    document.getElementById('detSquareFeet').value = details.squareFeet || '';
+    document.getElementById('detYearBuilt').value = details.yearBuilt || '';
+  } else if (category === 'estate') {
+    document.getElementById('detTotalUnits').value = details.totalUnits || '';
+    document.getElementById('detAmenities').value = details.amenities || '';
+    document.getElementById('detTotalArea').value = details.totalArea || '';
+  } else if (category === 'car') {
+    document.getElementById('detMake').value = details.make || '';
+    document.getElementById('detModel').value = details.model || '';
+    document.getElementById('detYear').value = details.year || '';
+    document.getElementById('detMileage').value = details.mileage || '';
+    document.getElementById('detCondition').value = details.condition || '';
+  }
+}
+
+function addPhotoFromInput() {
+  const input = document.getElementById('photoInput');
+  if (!input.files || !input.files[0]) return;
+  if (window.currentPhotos.length >= 5) { alert('Maximum 5 photos'); return; }
+  const file = input.files[0];
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      const canvas = document.createElement('canvas');
+      const maxWidth = 800;
+      let width = img.width, height = img.height;
+      if (width > maxWidth) { height *= maxWidth / width; width = maxWidth; }
+      canvas.width = width; canvas.height = height;
+      canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+      window.currentPhotos.push(dataUrl);
+      renderPhotoPreviews();
+      input.value = '';
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function renderPhotoPreviews() {
+  const container = document.getElementById('photoPreviews');
+  if (!container) return;
+  container.innerHTML = window.currentPhotos.map((src, idx) => `
+    <div class="relative w-20 h-20"><img src="${src}" class="w-full h-full object-cover rounded"><button onclick="removePhoto(${idx})" class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 text-xs">&times;</button></div>`).join('');
+}
+
+function removePhoto(idx) {
+  window.currentPhotos.splice(idx, 1);
+  renderPhotoPreviews();
+}
+
+function collectDetailFields(category) {
+  const details = {};
+  if (category === 'land') {
+    details.size = document.getElementById('detSize')?.value || '';
+    details.zoning = document.getElementById('detZoning')?.value || '';
+    details.topography = document.getElementById('detTopography')?.value || '';
+  } else if (category === 'house') {
+    details.bedrooms = document.getElementById('detBedrooms')?.value || '';
+    details.bathrooms = document.getElementById('detBathrooms')?.value || '';
+    details.squareFeet = document.getElementById('detSquareFeet')?.value || '';
+    details.yearBuilt = document.getElementById('detYearBuilt')?.value || '';
+  } else if (category === 'estate') {
+    details.totalUnits = document.getElementById('detTotalUnits')?.value || '';
+    details.amenities = document.getElementById('detAmenities')?.value || '';
+    details.totalArea = document.getElementById('detTotalArea')?.value || '';
+  } else if (category === 'car') {
+    details.make = document.getElementById('detMake')?.value || '';
+    details.model = document.getElementById('detModel')?.value || '';
+    details.year = document.getElementById('detYear')?.value || '';
+    details.mileage = document.getElementById('detMileage')?.value || '';
+    details.condition = document.getElementById('detCondition')?.value || '';
+  }
+  return JSON.stringify(details);
+}
+
+function saveListing(id) {
+  const title = document.getElementById('lfTitle').value.trim();
+  const category = document.getElementById('lfCategory').value;
+  const description = document.getElementById('lfDescription').value.trim();
+  const price = parseFloat(document.getElementById('lfPrice').value) || 0;
+  const location = document.getElementById('lfLocation').value.trim();
+  const status = document.getElementById('lfStatus').value;
+  const featured = document.getElementById('lfFeatured').checked ? 1 : 0;
+  const details = collectDetailFields(category);
+  if (!title || !location) { alert('Title and location required'); return; }
+
+  if (id) {
+    // Update
+    db.run("UPDATE listings SET title=?, category=?, description=?, price=?, location=?, status=?, is_featured=?, details=? WHERE id=?",
+      [title, category, description, price, location, status, featured, details, id]);
+    // Replace images
+    db.run("DELETE FROM listing_images WHERE listing_id=?", [id]);
+    window.currentPhotos.forEach((photo, idx) => {
+      db.run("INSERT INTO listing_images (listing_id, image_data, sort_order) VALUES (?,?,?)", [id, photo, idx]);
+    });
+  } else {
+    // Insert new
+    db.run("INSERT INTO listings (title, category, description, price, location, status, is_featured, details) VALUES (?,?,?,?,?,?,?,?)",
+      [title, category, description, price, location, status, featured, details]);
+    const newId = db.exec("SELECT last_insert_rowid()")[0].values[0][0];
+    window.currentPhotos.forEach((photo, idx) => {
+      db.run("INSERT INTO listing_images (listing_id, image_data, sort_order) VALUES (?,?,?)", [newId, photo, idx]);
+    });
+  }
+  saveDatabase();
+  closeListingForm();
+  showAdminSection('listings'); // refresh list
+}
+
+function closeListingForm() {
+  const overlay = document.getElementById('listingFormOverlay');
+  if (overlay) overlay.remove();
+}
+
+function editListing(id) {
+  const listing = executeQuery("SELECT * FROM listings WHERE id=?", [id])[0];
+  openListingForm(listing);
+}
+
+function deleteListing(id) {
+  if (confirm('Delete this listing?')) {
+    db.run("DELETE FROM listings WHERE id=?", [id]);
+    db.run("DELETE FROM listing_images WHERE listing_id=?", [id]);
+    saveDatabase();
+    showAdminSection('listings');
+  }
+}
+
+function adminLogout() {
+  adminLoggedIn = false;
+  adminUser = null;
+  loadAdminPage();
+}
+
+function exportDatabase() {
+  const uint8 = db.export();
+  const blob = new Blob([uint8], {type: 'application/octet-stream'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'oremaglobal.db';
+  a.click();
+  URL.revokeObjectURL(url);
+  alert('Database exported. You can replace the file on your host if needed.');
+}
+
+// ==================== INITIAL LOAD ====================
 </script>
 </body>
 </html>
