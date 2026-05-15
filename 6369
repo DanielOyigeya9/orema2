@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orema Global – Real Estate, Auto & Logistics</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:#0d1b2a; --navy-mid:#1a2f45; --blue:#1d6fa4; --blue-bright:#2589c8;
+      --accent:#e8a020; --green:#1a7a4a; --green-pale:#edf7f2;
+      --red-pale:#fdf0f0; --red-text:#b91c1c;
+      --white:#fff; --off:#f5f6f8; --border:#e2e5ea;
+      --text:#0d1b2a; --muted:#6b7584; --light:#9aa3b0;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Sora',sans-serif;background:var(--off);color:var(--text);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+    .topbar{background:var(--navy);padding:8px 0;font-size:12px;color:rgba(255,255,255,.5)}
+    .topbar-inner{max-width:1200px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center}
+    .topbar a{color:rgba(255,255,255,.55);text-decoration:none}.topbar a:hover{color:#fff}
+    @media(max-width:768px){.topbar{display:none}}
+
+    .nav-bar{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+    .nav-inner{max-width:1200px;margin:0 auto;padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:64px}
+    .nav-logo{font-size:18px;font-weight:700;color:var(--navy);letter-spacing:-.5px;text-decoration:none}
+    .nav-logo em{font-style:normal;color:var(--blue)}
+    .nav-logo span{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:400;color:var(--light);display:block;letter-spacing:1.5px;margin-top:-2px}
+    .nav-links{display:flex;align-items:center;gap:4px}
+    .nav-links a{font-size:13.5px;font-weight:500;color:var(--muted);text-decoration:none;padding:6px 14px;border-radius:6px;transition:color .15s,background .15s}
+    .nav-links a:hover{color:var(--navy);background:var(--off)}
+    .nav-links a.cta{background:var(--navy);color:#fff;padding:7px 18px;margin-left:8px}
+    .nav-links a.cta:hover{background:var(--navy-mid);color:#fff}
+    .hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--navy)}
+    .mobile-nav{display:none;background:var(--white);border-top:1px solid var(--border);padding:12px 20px 20px}
+    .mobile-nav a{display:block;padding:11px 4px;font-size:14px;color:var(--text);text-decoration:none;border-bottom:1px solid var(--border)}
+    .mobile-nav a:last-child{border:none}
+    @media(max-width:768px){.nav-links{display:none}.hamburger{display:block}}
+
+    .page-section{display:none}.page-section.active{display:block}
+    .wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+    .page-pad{padding-top:40px;padding-bottom:80px}
+    @media(max-width:768px){.wrap{padding:0 16px}}
+
+    /* HERO */
+    .hero-outer{background:var(--navy);position:relative;overflow:hidden}
+    .hero-grid-bg{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:48px 48px}
+    .hero-stripe{position:absolute;right:0;top:0;bottom:0;width:38%;background:var(--navy-mid);clip-path:polygon(12% 0,100% 0,100% 100%,0% 100%)}
+    @media(max-width:768px){.hero-stripe{display:none}}
+    .hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:80px 28px 72px}
+    .hero-tag{display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
+    .hero-tag::before{content:'';display:block;width:20px;height:1.5px;background:var(--accent)}
+    .hero h1{font-size:clamp(30px,4.5vw,52px);font-weight:700;color:#fff;line-height:1.12;letter-spacing:-1px;max-width:560px;margin-bottom:20px}
+    .hero h1 em{font-style:normal;color:var(--blue-bright)}
+    .hero-sub{font-size:15px;color:rgba(255,255,255,.55);max-width:480px;line-height:1.75;margin-bottom:36px;font-weight:300}
+    .hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+    .btn-hero-primary{background:var(--blue);color:#fff;padding:13px 28px;border-radius:6px;font-size:14px;font-weight:600;text-decoration:none;transition:background .2s;display:inline-block;border:none;cursor:pointer;font-family:'Sora',sans-serif}
+    .btn-hero-primary:hover{background:var(--blue-bright)}
+    .btn-hero-ghost{background:transparent;color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.2);padding:13px 28px;border-radius:6px;font-size:14px;font-weight:500;text-decoration:none;transition:all .2s;display:inline-block;cursor:pointer;font-family:'Sora',sans-serif}
+    .btn-hero-ghost:hover{border-color:rgba(255,255,255,.5);color:#fff}
+
+    /* STATS */
+    .stats-band{background:var(--white);border-bottom:1px solid var(--border)}
+    .stats-band-inner{max-width:1200px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid var(--border)}
+    @media(max-width:768px){.stats-band-inner{grid-template-columns:repeat(2,1fr)}}
+    .stat-cell{padding:28px 24px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .stat-n{font-size:30px;font-weight:700;color:var(--navy);letter-spacing:-1px;line-height:1}
+    .stat-n em{font-style:normal;color:var(--blue)}
+    .stat-l{font-size:12px;color:var(--muted);margin-top:4px}
+
+    .sec-label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--blue);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+    .sec-title{font-size:24px;font-weight:700;color:var(--navy);letter-spacing:-.5px;margin-bottom:28px}
+
+    /* CARDS */
+    .listing-card{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:box-shadow .2s,border-color .2s;display:flex;flex-direction:column}
+    .listing-card:hover{border-color:#b0bec8;box-shadow:0 4px 24px rgba(13,27,42,.08)}
+    .listing-card img{width:100%;height:200px;object-fit:cover;display:block;background:var(--off)}
+    .listing-card-body{padding:16px 18px 20px;flex:1;display:flex;flex-direction:column}
+    .lc-badge{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:#eef4fb;color:var(--blue);font-weight:500;margin-bottom:8px;display:inline-block}
+    .lc-badge.sold{background:var(--red-pale);color:var(--red-text)}
+    .lc-badge.logistics{background:#fff4e6;color:#b45309}
+    .lc-title{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:6px;line-height:1.35}
+    .lc-price{font-size:17px;font-weight:700;color:var(--navy);margin-bottom:4px}
+    .lc-loc{font-size:12px;color:var(--muted);margin-top:auto;padding-top:8px}
+
+    /* SERVICES */
+    .svc-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:24px}
+    .svc-icon-wrap{width:44px;height:44px;border-radius:8px;background:#eef4fb;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
+    .svc-title{font-size:15px;font-weight:600;color:var(--navy);margin-bottom:6px}
+    .svc-desc{font-size:13px;color:var(--muted);line-height:1.65}
+    .svc-content{font-size:12.5px;color:var(--light);margin-top:12px;border-top:1px solid var(--border);padding-top:12px;line-height:1.6}
+
+    /* FILTERS */
+    .filter-wrap{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:24px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+    .filter-wrap select,.filter-wrap input{border:1px solid var(--border);border-radius:6px;padding:9px 13px;font-size:13px;font-family:'Sora',sans-serif;color:var(--text);background:var(--off);outline:none;transition:border-color .15s}
+    .filter-wrap select:focus,.filter-wrap input:focus{border-color:var(--blue)}
+    .filter-wrap input[type=number]{width:116px}.filter-wrap input[type=text]{width:140px}
+    .btn-filter{background:var(--navy);color:#fff;border:none;border-radius:6px;padding:9px 20px;font-size:13px;font-weight:600;font-family:'Sora',sans-serif;cursor:pointer}
+    .btn-filter:hover{background:var(--navy-mid)}
+
+    .pg{display:flex;justify-content:center;gap:6px;margin-top:36px}
+    .pg-btn{width:36px;height:36px;border-radius:6px;border:1px solid var(--border);background:var(--white);font-size:13px;font-weight:500;cursor:pointer;font-family:'Sora',sans-serif;color:var(--muted);transition:all .15s}
+    .pg-btn:hover{border-color:var(--blue);color:var(--blue)}
+    .pg-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+    /* DETAIL */
+    .back-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:500;color:var(--blue);cursor:pointer;margin-bottom:24px;text-decoration:none}
+    .back-link:hover{text-decoration:underline}
+    .detail-img{width:100%;height:380px;object-fit:cover;border-radius:10px;background:var(--off)}
+    .thumb-row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+    .thumb-img{width:66px;height:66px;object-fit:cover;border-radius:6px;cursor:pointer;border:2px solid transparent;transition:border-color .15s;background:var(--off)}
+    .thumb-img.active{border-color:var(--blue)}
+    .detail-badge{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;background:#eef4fb;color:var(--blue);padding:4px 10px;border-radius:3px;margin-bottom:12px}
+    .detail-title{font-size:28px;font-weight:700;color:var(--navy);letter-spacing:-.5px;margin-bottom:6px;line-height:1.2}
+    .detail-price{font-size:24px;font-weight:700;color:var(--navy);margin-bottom:4px}
+    .detail-price em{font-style:normal;font-size:14px;color:var(--muted);font-weight:400}
+    .detail-loc{font-size:13px;color:var(--muted);margin-bottom:20px}
+    .detail-desc{font-size:14px;color:#444;line-height:1.8;margin-bottom:20px}
+    .specs-wrap{border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:24px}
+    .specs-row{display:flex;border-bottom:1px solid var(--border);font-size:13px}
+    .specs-row:last-child{border-bottom:none}
+    .specs-key{padding:10px 14px;color:var(--muted);width:44%;background:var(--off);font-weight:500}
+    .specs-val{padding:10px 14px;color:var(--text)}
+    .inq-box{background:var(--off);border:1px solid var(--border);border-radius:10px;padding:22px}
+    .inq-title{font-size:14px;font-weight:600;color:var(--navy);margin-bottom:14px}
+
+    /* FORMS */
+    .f-input{width:100%;border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-size:13.5px;font-family:'Sora',sans-serif;color:var(--text);background:var(--white);outline:none;margin-bottom:10px;transition:border-color .15s}
+    .f-input:focus{border-color:var(--blue)}
+    textarea.f-input{resize:vertical;min-height:96px}
+    .btn-submit{background:var(--blue);color:#fff;border:none;border-radius:6px;padding:11px 24px;font-size:13.5px;font-weight:600;font-family:'Sora',sans-serif;cursor:pointer;transition:background .15s}
+    .btn-submit:hover{background:var(--blue-bright)}
+    .btn-submit:disabled{opacity:.6;cursor:not-allowed}
+    .form-card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:28px}
+
+    /* CONTACT */
+    .contact-info-card{background:var(--navy);border-radius:10px;padding:32px;color:rgba(255,255,255,.75)}
+    .contact-info-card h3{font-size:17px;font-weight:600;color:#fff;margin-bottom:20px}
+    .contact-row{display:flex;gap:12px;margin-bottom:18px;align-items:flex-start}
+    .contact-icon{width:34px;height:34px;border-radius:6px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+    .contact-lbl{font-size:11px;color:rgba(255,255,255,.4);letter-spacing:.5px;margin-bottom:2px}
+    .contact-val{font-size:13.5px;color:rgba(255,255,255,.85)}
+    .map-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:8px;height:160px;display:flex;align-items:center;justify-content:center;font-size:13px;color:rgba(255,255,255,.3);margin-top:24px;font-family:'IBM Plex Mono',monospace}
+
+    .page-title-bar{border-bottom:1px solid var(--border);background:var(--white);padding:24px 0;margin-bottom:28px}
+    .page-title-bar h1{font-size:22px;font-weight:700;color:var(--navy);letter-spacing:-.3px}
+
+    /* ADMIN */
+    .admin-login-wrap{max-width:400px;margin:60px auto;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:36px 32px}
+    .admin-login-title{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:6px}
+    .admin-login-sub{font-size:13px;color:var(--muted);margin-bottom:24px}
+    .admin-sidebar{width:220px;flex-shrink:0;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 0;height:fit-content}
+    .admin-sidebar-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--light);text-transform:uppercase;padding:0 18px 12px}
+    .admin-nav-btn{display:flex;align-items:center;gap:10px;width:100%;padding:10px 18px;background:none;border:none;font-size:13.5px;font-family:'Sora',sans-serif;color:var(--muted);text-align:left;cursor:pointer;transition:background .15s,color .15s}
+    .admin-nav-btn:hover{background:var(--off);color:var(--navy)}
+    .admin-nav-btn.danger:hover{background:#fdf0f0;color:var(--red-text)}
+    .admin-content{flex:1;background:var(--white);border:1px solid var(--border);border-radius:10px;padding:28px;min-width:0}
+    .admin-content-title{font-size:18px;font-weight:700;color:var(--navy);letter-spacing:-.3px;margin-bottom:20px}
+    .kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+    @media(max-width:600px){.kpi-grid{grid-template-columns:1fr 1fr}}
+    .kpi-card{background:var(--off);border:1px solid var(--border);border-radius:8px;padding:18px}
+    .kpi-n{font-size:28px;font-weight:700;color:var(--navy);letter-spacing:-1px}
+    .kpi-l{font-size:12px;color:var(--muted);margin-top:2px}
+    .btn-add{background:var(--navy);color:#fff;border:none;border-radius:6px;padding:9px 18px;font-size:13px;font-weight:600;font-family:'Sora',sans-serif;cursor:pointer;margin-bottom:18px;transition:background .15s;display:inline-flex;align-items:center;gap:6px}
+    .btn-add:hover{background:var(--navy-mid)}
+    .a-table{width:100%;border-collapse:collapse;font-size:13px}
+    .a-table thead th{text-align:left;padding:9px 12px;font-size:11px;font-weight:600;color:var(--light);letter-spacing:.5px;text-transform:uppercase;border-bottom:1px solid var(--border);background:var(--off)}
+    .a-table tbody td{padding:12px;border-bottom:1px solid var(--border);color:var(--text)}
+    .a-table tbody tr:last-child td{border-bottom:none}
+    .a-table tbody tr:hover td{background:#fafbfc}
+    .tbl-btn{background:none;border:none;font-size:12.5px;font-family:'Sora',sans-serif;cursor:pointer;font-weight:500;padding:2px 0}
+    .tbl-edit{color:var(--blue)}.tbl-del{color:var(--red-text);margin-left:10px}
+    .tbl-edit:hover,.tbl-del:hover{text-decoration:underline}
+    .status-pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;font-family:'IBM Plex Mono',monospace}
+    .status-avail{background:var(--green-pale);color:var(--green)}
+    .status-sold{background:var(--red-pale);color:var(--red-text)}
+    .inq-item{border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:10px;background:var(--off)}
+    .inq-item.unread{border-left:3px solid var(--blue)}
+    .inq-name{font-size:14px;font-weight:600;color:var(--navy)}
+    .inq-meta{font-size:12px;color:var(--muted);margin:3px 0 8px}
+    .inq-msg{font-size:13px;color:var(--text);line-height:1.6}
+
+    /* MODAL */
+    .modal-bg{position:fixed;inset:0;background:rgba(13,27,42,.55);display:flex;align-items:flex-start;justify-content:center;z-index:200;padding:20px;overflow-y:auto}
+    .modal-box{background:var(--white);border-radius:12px;padding:28px;max-width:640px;width:100%;margin:auto}
+    .modal-title{font-size:17px;font-weight:700;color:var(--navy);margin-bottom:20px}
+    .modal-section-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--light);text-transform:uppercase;margin-bottom:8px;margin-top:16px}
+    .m-input{width:100%;border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-size:13.5px;font-family:'Sora',sans-serif;color:var(--text);background:var(--off);outline:none;margin-bottom:10px;transition:border-color .15s}
+    .m-input:focus{border-color:var(--blue);background:var(--white)}
+    .m-check-label{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);cursor:pointer;margin-bottom:16px}
+    .modal-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
+    .btn-cancel{border:1px solid var(--border);background:var(--white);border-radius:6px;padding:9px 20px;font-size:13px;cursor:pointer;font-family:'Sora',sans-serif;color:var(--muted)}
+    .btn-cancel:hover{background:var(--off)}
+    .btn-save{background:var(--navy);color:#fff;border:none;border-radius:6px;padding:9px 22px;font-size:13px;font-weight:600;font-family:'Sora',sans-serif;cursor:pointer}
+    .btn-save:hover{background:var(--navy-mid)}
+    .btn-save:disabled{opacity:.6;cursor:not-allowed}
+
+    /* PHOTO UPLOAD */
+    .photo-grid{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+    .photo-item{position:relative;width:80px;height:80px}
+    .photo-item img{width:100%;height:100%;object-fit:cover;border-radius:6px;border:1px solid var(--border)}
+    .photo-rm{position:absolute;top:3px;right:3px;width:18px;height:18px;border-radius:50%;background:rgba(185,28,28,.85);color:#fff;border:none;cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center}
+    .upload-area{border:2px dashed var(--border);border-radius:8px;padding:16px;text-align:center;cursor:pointer;transition:border-color .15s;margin-top:8px}
+    .upload-area:hover{border-color:var(--blue)}
+    .upload-area input{display:none}
+    .upload-area-label{font-size:13px;color:var(--muted)}
+    .upload-progress{font-size:12px;color:var(--blue);margin-top:6px;font-family:'IBM Plex Mono',monospace}
+
+    /* LOADING & ALERTS */
+    .loading-overlay{position:fixed;inset:0;background:rgba(255,255,255,.85);display:flex;align-items:center;justify-content:center;z-index:300}
+    .spinner{width:36px;height:36px;border-radius:50%;border:3px solid var(--border);border-top-color:var(--blue);animation:spin .75s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .success-banner{font-size:13px;color:var(--green);font-weight:500;margin-top:10px;padding:10px 14px;background:var(--green-pale);border-radius:6px}
+    .error-banner{font-size:13px;color:var(--red-text);font-weight:500;margin-top:10px;padding:10px 14px;background:var(--red-pale);border-radius:6px}
+    .toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:8px;font-size:13px;font-weight:500;z-index:400;transform:translateY(80px);opacity:0;transition:all .3s;max-width:300px}
+    .toast.show{transform:translateY(0);opacity:1}
+    .toast.error{background:var(--red-text)}
+    .empty-state{text-align:center;padding:60px 0;color:var(--muted);font-size:14px}
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <span>📍 15 Orema Street, Lekki, Lagos, Nigeria</span>
+    <span><a href="tel:+2348000000000">+234 800 000 0000</a> &nbsp;·&nbsp; <a href="mailto:info@oremaglobal.com">info@oremaglobal.com</a></span>
+  </div>
+</div>
+
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <a href="#/home" class="nav-logo">Orema <em>Global</em><span>REAL ESTATE · AUTO · LOGISTICS</span></a>
+    <div class="nav-links">
+      <a href="#/home"     class="nav-link">Home</a>
+      <a href="#/listings" class="nav-link">Listings</a>
+      <a href="#/services" class="nav-link">Services</a>
+      <a href="#/contact"  class="nav-link">Contact</a>
+      <a href="#/admin"    class="nav-link cta">Admin</a>
+    </div>
+    <button id="mobileMenuBtn" class="hamburger">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  <div id="mobileMenu" class="mobile-nav">
+    <a href="#/home" class="nav-link">Home</a>
+    <a href="#/listings" class="nav-link">Listings</a>
+    <a href="#/services" class="nav-link">Services</a>
+    <a href="#/contact" class="nav-link">Contact</a>
+    <a href="#/admin" class="nav-link">Admin</a>
+  </div>
+</nav>
+
+<!-- PAGES -->
+<div id="homePage"          class="page-section active"><div id="homeContent"></div></div>
+<div id="listingsPage"      class="page-section">
+  <div class="page-title-bar"><div class="wrap"><h1>Property, Vehicle &amp; Logistics Listings</h1></div></div>
+  <div class="wrap page-pad" style="padding-top:0">
+    <div id="listingFilters"></div>
+    <div id="listingGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+    <div id="listingPagination" class="pg"></div>
+  </div>
+</div>
+<div id="listingDetailPage" class="page-section"><div class="wrap page-pad"><div id="detailContent"></div></div></div>
+<div id="servicesPage" class="page-section">
+  <div class="page-title-bar"><div class="wrap"><h1>Our Services</h1></div></div>
+  <div class="wrap page-pad" style="padding-top:0"><div id="servicesGrid" class="grid md:grid-cols-3 gap-5"></div></div>
+</div>
+<div id="contactPage" class="page-section">
+  <div class="page-title-bar"><div class="wrap"><h1>Contact Us</h1></div></div>
+  <div class="wrap page-pad" style="padding-top:0"><div id="contactContent" class="grid md:grid-cols-2 gap-8"></div></div>
+</div>
+<div id="adminPage" class="page-section">
+  <div class="wrap page-pad"><div id="adminContainer" class="flex flex-col md:flex-row gap-6"></div></div>
+</div>
+
+<div id="loadingOverlay" class="loading-overlay" style="display:none"><div class="spinner"></div></div>
+<div id="toast" class="toast"></div>
+
+<script>
+// ════════════════════════════════════════════════════════════
+//  SUPABASE CONFIG
+// ════════════════════════════════════════════════════════════
+const SUPABASE_URL  = 'https://sfmmbjoamxlgxhxausiv.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNmbW1iam9hbXhsZ3hoeGF1c2l2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3NDUyODMsImV4cCI6MjA5NDMyMTI4M30.N84kq1uZNOQjByvDlhekhlBPY4Mu0OwitxSst1PNgrk';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+// ════════════════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════════════════
+let currentUser   = null;
+let listFilters   = {category:'', minPrice:'', maxPrice:'', location:'', status:'available'};
+let listPage      = 1;
+const PER_PAGE    = 6;
+
+// ════════════════════════════════════════════════════════════
+//  BOOT
+// ════════════════════════════════════════════════════════════
+window.addEventListener('hashchange', router);
+window.addEventListener('load', async () => {
+  // Listen for auth state
+  sb.auth.onAuthStateChange((_event, session) => {
+    currentUser = session?.user ?? null;
+  });
+  const { data: { session } } = await sb.auth.getSession();
+  currentUser = session?.user ?? null;
+
+  setupNav();
+  router();
+});
+
+// ════════════════════════════════════════════════════════════
+//  ROUTER
+// ════════════════════════════════════════════════════════════
+function router() {
+  const hash   = window.location.hash.slice(1) || '/home';
+  const [path, qs] = hash.split('?');
+  const params = new URLSearchParams(qs || '');
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  const map = {
+    '/home':     () => { show('homePage');          loadHome(); },
+    '/':         () => { show('homePage');          loadHome(); },
+    '/listings': () => { show('listingsPage');      loadListings(params); },
+    '/listing':  () => { show('listingDetailPage'); loadDetail(params.get('id')); },
+    '/services': () => { show('servicesPage');      loadServices(); },
+    '/contact':  () => { show('contactPage');       loadContact(); },
+    '/admin':    () => { show('adminPage');         loadAdmin(); },
+  };
+  (map[path] || map['/'])();
+  window.scrollTo(0, 0);
+}
+function show(id) { document.getElementById(id).classList.add('active'); }
+
+function setupNav() {
+  document.querySelectorAll('.nav-link').forEach(a =>
+    a.addEventListener('click', () => { document.getElementById('mobileMenu').style.display = 'none'; })
+  );
+  document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+    const m = document.getElementById('mobileMenu');
+    m.style.display = m.style.display === 'block' ? 'none' : 'block';
+  });
+}
+
+// ════════════════════════════════════════════════════════════
+//  HELPERS
+// ════════════════════════════════════════════════════════════
+function showLoading(v) { document.getElementById('loadingOverlay').style.display = v ? 'flex' : 'none'; }
+
+function toast(msg, isError = false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className   = 'toast show' + (isError ? ' error' : '');
+  setTimeout(() => t.className = 'toast', 3500);
+}
+
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function cardHtml(l) {
+  const imgs = l.listing_images || [];
+  const img  = imgs.length ? imgs[0].image_url : 'https://via.placeholder.com/400x220/e2e5ea/9aa3b0?text=No+Image';
+  const isLog = l.category === 'logistics';
+  const bdgCls = l.status === 'sold' ? 'sold' : (isLog ? 'logistics' : '');
+  const bdgTxt = l.status === 'sold' ? 'SOLD' : l.category.toUpperCase();
+  const price  = isLog
+    ? `<div class="lc-price" style="font-size:14px;color:var(--blue);font-weight:600">Get a Quote →</div>`
+    : `<div class="lc-price">₦${Number(l.price).toLocaleString()}</div>`;
+  return `<div class="listing-card" onclick="window.location.href='#/listing?id=${l.id}'">
+    <img src="${esc(img)}" alt="${esc(l.title)}" loading="lazy">
+    <div class="listing-card-body">
+      <span class="lc-badge ${bdgCls}">${bdgTxt}</span>
+      <div class="lc-title">${esc(l.title)}</div>
+      ${price}
+      <div class="lc-loc">📍 ${esc(l.location)}</div>
+    </div>
+  </div>`;
+}
+
+// ════════════════════════════════════════════════════════════
+//  HOME
+// ════════════════════════════════════════════════════════════
+async function loadHome() {
+  showLoading(true);
+  try {
+    const [
+      { data: featured },
+      { count: propCount },
+      { count: carCount },
+      { data: svcs }
+    ] = await Promise.all([
+      sb.from('listings').select('*, listing_images(image_url)').eq('is_featured', true).eq('status','available').limit(3),
+      sb.from('listings').select('*', {count:'exact', head:true}).in('category',['land','house','estate']),
+      sb.from('listings').select('*', {count:'exact', head:true}).eq('category','car'),
+      sb.from('services').select('*').order('sort_order'),
+    ]);
+
+    document.getElementById('homeContent').innerHTML = `
+      <div class="hero-outer">
+        <div class="hero-grid-bg"></div><div class="hero-stripe"></div>
+        <div class="hero-inner">
+          <div class="hero-tag">Lagos, Nigeria</div>
+          <h1>Real Estate, Auto &amp;<br><em>Logistics</em> You Can Trust</h1>
+          <p class="hero-sub">One company. Three verticals. We handle property sales, quality vehicles, and end-to-end logistics — backed by professional documentation and advisory services.</p>
+          <div class="hero-btns">
+            <a href="#/listings" class="btn-hero-primary">View All Listings</a>
+            <a href="#/contact"  class="btn-hero-ghost">Get in Touch</a>
+          </div>
+        </div>
+      </div>
+      <div class="stats-band">
+        <div class="stats-band-inner">
+          <div class="stat-cell"><div class="stat-n">${propCount||0}<em>+</em></div><div class="stat-l">Properties listed</div></div>
+          <div class="stat-cell"><div class="stat-n">${carCount||0}<em>+</em></div><div class="stat-l">Vehicles available</div></div>
+          <div class="stat-cell"><div class="stat-n">3</div><div class="stat-l">Business verticals</div></div>
+          <div class="stat-cell"><div class="stat-n">150<em>+</em></div><div class="stat-l">Satisfied clients</div></div>
+        </div>
+      </div>
+      <div class="wrap" style="padding-top:52px;padding-bottom:20px">
+        <div class="sec-label">Handpicked</div>
+        <div class="sec-title">Featured Listings</div>
+        <div class="grid md:grid-cols-3 gap-5" id="featuredGrid"></div>
+      </div>
+      <div class="wrap" style="padding-top:48px;padding-bottom:64px">
+        <div class="sec-label">What we offer</div>
+        <div class="sec-title">Our Services</div>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4" id="svcsPreview"></div>
+      </div>`;
+
+    document.getElementById('featuredGrid').innerHTML =
+      featured?.length
+        ? featured.map(l => cardHtml(l)).join('')
+        : '<p class="empty-state">No featured listings yet.</p>';
+
+    document.getElementById('svcsPreview').innerHTML =
+      (svcs||[]).slice(0,6).map(s => `
+        <div class="svc-card">
+          <div class="svc-icon-wrap">${s.icon||'🔧'}</div>
+          <div class="svc-title">${esc(s.title)}</div>
+          <div class="svc-desc">${esc(s.description)}</div>
+        </div>`).join('');
+  } catch(e) {
+    document.getElementById('homeContent').innerHTML = `<div class="wrap page-pad"><p class="error-banner">Failed to load: ${e.message}</p></div>`;
+  }
+  showLoading(false);
+}
+
+// ════════════════════════════════════════════════════════════
+//  LISTINGS
+// ════════════════════════════════════════════════════════════
+function loadListings(params) {
+  listFilters.category = params.get('category') || '';
+  listFilters.minPrice = params.get('min')      || '';
+  listFilters.maxPrice = params.get('max')      || '';
+  listFilters.location = params.get('location') || '';
+  listFilters.status   = params.get('status')   || 'available';
+  listPage = parseInt(params.get('page')) || 1;
+  renderFilters();
+  fetchListings();
+}
+
+function renderFilters() {
+  document.getElementById('listingFilters').innerHTML = `
+    <div class="filter-wrap">
+      <select id="fCat">
+        <option value="">All Categories</option>
+        <option value="land">Land</option>
+        <option value="house">Houses</option>
+        <option value="estate">Estates</option>
+        <option value="car">Vehicles</option>
+        <option value="logistics">Logistics</option>
+      </select>
+      <input type="number" id="fMin" placeholder="Min Price ₦" value="${listFilters.minPrice}">
+      <input type="number" id="fMax" placeholder="Max Price ₦" value="${listFilters.maxPrice}">
+      <input type="text"   id="fLoc" placeholder="Location"    value="${listFilters.location}">
+      <select id="fStatus">
+        <option value="available">Available</option>
+        <option value="sold">Sold</option>
+        <option value="">All Status</option>
+      </select>
+      <button class="btn-filter" onclick="applyFilters()">Apply</button>
+    </div>`;
+  document.getElementById('fCat').value    = listFilters.category;
+  document.getElementById('fStatus').value = listFilters.status;
+}
+
+function applyFilters() {
+  listFilters.category = document.getElementById('fCat').value;
+  listFilters.minPrice = document.getElementById('fMin').value;
+  listFilters.maxPrice = document.getElementById('fMax').value;
+  listFilters.location = document.getElementById('fLoc').value;
+  listFilters.status   = document.getElementById('fStatus').value;
+  listPage = 1;
+  fetchListings();
+  const p = new URLSearchParams();
+  if (listFilters.category) p.set('category', listFilters.category);
+  if (listFilters.minPrice) p.set('min', listFilters.minPrice);
+  if (listFilters.maxPrice) p.set('max', listFilters.maxPrice);
+  if (listFilters.location) p.set('location', listFilters.location);
+  if (listFilters.status !== 'available') p.set('status', listFilters.status);
+  window.location.hash = '/listings?' + p.toString();
+}
+
+async function fetchListings() {
+  showLoading(true);
+  try {
+    let query = sb.from('listings').select('*, listing_images(image_url)', {count:'exact'});
+    if (listFilters.category) query = query.eq('category', listFilters.category);
+    if (listFilters.status)   query = query.eq('status', listFilters.status);
+    if (listFilters.minPrice) query = query.gte('price', +listFilters.minPrice);
+    if (listFilters.maxPrice) query = query.lte('price', +listFilters.maxPrice);
+    if (listFilters.location) query = query.ilike('location', `%${listFilters.location}%`);
+
+    const from = (listPage - 1) * PER_PAGE;
+    const to   = from + PER_PAGE - 1;
+    const { data, count, error } = await query.order('created_at', {ascending:false}).range(from, to);
+    if (error) throw error;
+
+    const totalPages = Math.ceil((count||0) / PER_PAGE);
+
+    document.getElementById('listingGrid').innerHTML = data?.length
+      ? data.map(l => cardHtml(l)).join('')
+      : `<div class="empty-state" style="grid-column:1/-1">No listings match your criteria.</div>`;
+
+    const pg = document.getElementById('listingPagination');
+    pg.innerHTML = '';
+    for (let i = 1; i <= totalPages; i++) {
+      const b = document.createElement('button');
+      b.className   = 'pg-btn' + (i === listPage ? ' active' : '');
+      b.textContent = i;
+      b.onclick     = () => { listPage = i; fetchListings(); window.scrollTo(0,0); };
+      pg.appendChild(b);
+    }
+  } catch(e) {
+    document.getElementById('listingGrid').innerHTML = `<p class="error-banner" style="grid-column:1/-1">${e.message}</p>`;
+  }
+  showLoading(false);
+}
+
+// ════════════════════════════════════════════════════════════
+//  DETAIL
+// ════════════════════════════════════════════════════════════
+async function loadDetail(id) {
+  if (!id) { window.location.hash = '#/listings'; return; }
+  showLoading(true);
+  try {
+    const { data: l, error } = await sb.from('listings').select('*, listing_images(id, image_url, sort_order)').eq('id', id).single();
+    if (error) throw error;
+
+    const imgs    = (l.listing_images || []).sort((a,b) => a.sort_order - b.sort_order);
+    const det     = l.details || {};
+    const detKeys = Object.keys(det);
+    const mainImg = imgs[0]?.image_url || 'https://via.placeholder.com/600x380/e2e5ea/9aa3b0?text=No+Image';
+    const thumbs  = imgs.map((img, i) =>
+      `<img class="thumb-img${i===0?' active':''}" src="${esc(img.image_url)}" onclick="switchImg(this,'${esc(img.image_url)}')" alt="Photo">`
+    ).join('');
+
+    document.getElementById('detailContent').innerHTML = `
+      <a class="back-link" onclick="history.back()">← Back to listings</a>
+      <div class="grid md:grid-cols-2 gap-10">
+        <div>
+          <img id="mainImg" class="detail-img" src="${esc(mainImg)}" alt="${esc(l.title)}">
+          <div class="thumb-row">${thumbs}</div>
+        </div>
+        <div>
+          <div class="detail-badge">${l.category.toUpperCase()}</div>
+          <div class="detail-title">${esc(l.title)}</div>
+          <div class="detail-price">${l.category==='logistics'
+            ? '<span style="font-size:16px;font-weight:600;color:var(--blue)">Contact us for pricing</span>'
+            : `₦${Number(l.price).toLocaleString()} <em>NGN</em>`}
+          </div>
+          <div class="detail-loc">📍 ${esc(l.location)}</div>
+          <div class="detail-desc">${esc(l.description||'')}</div>
+          ${detKeys.length ? `
+            <div class="specs-wrap">
+              ${detKeys.map(k=>`<div class="specs-row"><div class="specs-key">${esc(k)}</div><div class="specs-val">${esc(String(det[k]))}</div></div>`).join('')}
+            </div>` : ''}
+          <div class="inq-box">
+            <div class="inq-title">Send an Enquiry</div>
+            <input class="f-input" id="iName"  placeholder="Full name">
+            <input class="f-input" id="iEmail" placeholder="Email address">
+            <input class="f-input" id="iPhone" placeholder="Phone number">
+            <textarea class="f-input" id="iMsg" placeholder="Your message"></textarea>
+            <button class="btn-submit" id="inqBtn" onclick="submitInquiry('${l.id}')">Send Enquiry</button>
+            <div id="inqOk"  style="display:none" class="success-banner">✓ Enquiry received. We'll be in touch shortly.</div>
+            <div id="inqErr" style="display:none" class="error-banner"></div>
+          </div>
+        </div>
+      </div>`;
+  } catch(e) {
+    document.getElementById('detailContent').innerHTML = `<p class="error-banner">${e.message}</p>`;
+  }
+  showLoading(false);
+}
+
+function switchImg(el, src) {
+  document.getElementById('mainImg').src = src;
+  document.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+async function submitInquiry(listingId) {
+  const name  = document.getElementById('iName').value.trim();
+  const email = document.getElementById('iEmail').value.trim();
+  const phone = document.getElementById('iPhone').value.trim();
+  const msg   = document.getElementById('iMsg').value.trim();
+  const btn   = document.getElementById('inqBtn');
+  document.getElementById('inqOk').style.display  = 'none';
+  document.getElementById('inqErr').style.display = 'none';
+  if (!name || !email || !msg) {
+    document.getElementById('inqErr').textContent  = 'Please fill in name, email and message.';
+    document.getElementById('inqErr').style.display = 'block'; return;
+  }
+  btn.disabled = true; btn.textContent = 'Sending…';
+  const { error } = await sb.from('inquiries').insert({ listing_id: listingId, name, email, phone, message: msg });
+  btn.disabled = false; btn.textContent = 'Send Enquiry';
+  if (error) {
+    document.getElementById('inqErr').textContent  = error.message;
+    document.getElementById('inqErr').style.display = 'block';
+  } else {
+    ['iName','iEmail','iPhone','iMsg'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('inqOk').style.display = 'block';
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+//  SERVICES
+// ════════════════════════════════════════════════════════════
+async function loadServices() {
+  showLoading(true);
+  const { data, error } = await sb.from('services').select('*').order('sort_order');
+  document.getElementById('servicesGrid').innerHTML = error
+    ? `<p class="error-banner">${error.message}</p>`
+    : (data||[]).map(s => `
+        <div class="svc-card">
+          <div class="svc-icon-wrap">${s.icon||'🔧'}</div>
+          <div class="svc-title">${esc(s.title)}</div>
+          <div class="svc-desc">${esc(s.description)}</div>
+          <div class="svc-content">${esc(s.content||'')}</div>
+        </div>`).join('');
+  showLoading(false);
+}
+
+// ════════════════════════════════════════════════════════════
+//  CONTACT
+// ════════════════════════════════════════════════════════════
+function loadContact() {
+  document.getElementById('contactContent').innerHTML = `
+    <div class="contact-info-card">
+      <h3>Get in Touch</h3>
+      <div class="contact-row"><div class="contact-icon">📍</div><div><div class="contact-lbl">Address</div><div class="contact-val">15 Orema Street, Lekki, Lagos, Nigeria</div></div></div>
+      <div class="contact-row"><div class="contact-icon">📞</div><div><div class="contact-lbl">Phone</div><div class="contact-val">+234 800 000 0000</div></div></div>
+      <div class="contact-row"><div class="contact-icon">✉️</div><div><div class="contact-lbl">Email</div><div class="contact-val">info@oremaglobal.com</div></div></div>
+      <div class="contact-row"><div class="contact-icon">🕐</div><div><div class="contact-lbl">Office Hours</div><div class="contact-val">Mon – Sat, 8:00am – 6:00pm</div></div></div>
+      <div class="map-box">[ Map placeholder ]</div>
+    </div>
+    <div class="form-card">
+      <div style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:20px">Send a Message</div>
+      <input class="f-input" id="cName"  placeholder="Your name">
+      <input class="f-input" id="cEmail" placeholder="Email address">
+      <textarea class="f-input" id="cMsg" placeholder="How can we help?"></textarea>
+      <button class="btn-submit" id="cBtn" onclick="submitContact()">Send Message</button>
+      <div id="cOk"  style="display:none" class="success-banner">✓ Message sent. We'll respond within 24 hours.</div>
+      <div id="cErr" style="display:none" class="error-banner"></div>
+    </div>`;
+}
+
+async function submitContact() {
+  const name  = document.getElementById('cName').value.trim();
+  const email = document.getElementById('cEmail').value.trim();
+  const msg   = document.getElementById('cMsg').value.trim();
+  const btn   = document.getElementById('cBtn');
+  document.getElementById('cOk').style.display  = 'none';
+  document.getElementById('cErr').style.display = 'none';
+  if (!name || !email || !msg) {
+    document.getElementById('cErr').textContent  = 'Please fill all fields.';
+    document.getElementById('cErr').style.display = 'block'; return;
+  }
+  btn.disabled = true; btn.textContent = 'Sending…';
+  const { error } = await sb.from('inquiries').insert({ name, email, message: msg });
+  btn.disabled = false; btn.textContent = 'Send Message';
+  if (error) {
+    document.getElementById('cErr').textContent  = error.message;
+    document.getElementById('cErr').style.display = 'block';
+  } else {
+    ['cName','cEmail','cMsg'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('cOk').style.display = 'block';
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+//  ADMIN — AUTH
+// ════════════════════════════════════════════════════════════
+function loadAdmin() {
+  if (currentUser) { renderDashboard(); return; }
+  document.getElementById('adminContainer').innerHTML = `
+    <div class="admin-login-wrap">
+      <div class="admin-login-title">Admin Login</div>
+      <div class="admin-login-sub">Sign in with your Supabase admin email and password.</div>
+      <input class="f-input" id="aEmail" type="email" placeholder="Email address">
+      <input class="f-input" id="aPw"    type="password" placeholder="Password">
+      <button class="btn-submit" id="loginBtn" style="width:100%;margin-top:4px" onclick="adminLogin()">Login</button>
+      <div id="loginErr" style="display:none" class="error-banner"></div>
+    </div>`;
+}
+
+async function adminLogin() {
+  const email    = document.getElementById('aEmail').value.trim();
+  const password = document.getElementById('aPw').value;
+  const btn      = document.getElementById('loginBtn');
+  document.getElementById('loginErr').style.display = 'none';
+  btn.disabled = true; btn.textContent = 'Logging in…';
+  const { data, error } = await sb.auth.signInWithPassword({ email, password });
+  btn.disabled = false; btn.textContent = 'Login';
+  if (error) {
+    document.getElementById('loginErr').textContent  = error.message;
+    document.getElementById('loginErr').style.display = 'block';
+  } else {
+    currentUser = data.user;
+    renderDashboard();
+  }
+}
+
+async function adminLogout() {
+  await sb.auth.signOut();
+  currentUser = null;
+  loadAdmin();
+}
+
+// ════════════════════════════════════════════════════════════
+//  ADMIN — DASHBOARD
+// ════════════════════════════════════════════════════════════
+async function renderDashboard() {
+  showLoading(true);
+  const [
+    { count: propCount },
+    { count: carCount },
+    { count: inqCount }
+  ] = await Promise.all([
+    sb.from('listings').select('*',{count:'exact',head:true}).in('category',['land','house','estate']),
+    sb.from('listings').select('*',{count:'exact',head:true}).eq('category','car'),
+    sb.from('inquiries').select('*',{count:'exact',head:true}),
+  ]);
+  showLoading(false);
+
+  document.getElementById('adminContainer').innerHTML = `
+    <div class="admin-sidebar">
+      <div class="admin-sidebar-label">Navigation</div>
+      <button class="admin-nav-btn" onclick="adminSection('listings')">📋 &nbsp;Listings</button>
+      <button class="admin-nav-btn" onclick="adminSection('inquiries')">📩 &nbsp;Inquiries</button>
+      <button class="admin-nav-btn danger" onclick="adminLogout()">🚪 &nbsp;Logout</button>
+    </div>
+    <div class="admin-content" id="adminContent">
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-n">${propCount||0}</div><div class="kpi-l">Properties</div></div>
+        <div class="kpi-card"><div class="kpi-n">${carCount||0}</div><div class="kpi-l">Vehicles</div></div>
+        <div class="kpi-card"><div class="kpi-n">${inqCount||0}</div><div class="kpi-l">Inquiries</div></div>
+      </div>
+      <p style="color:var(--muted);font-size:13px">Select a section from the sidebar.</p>
+    </div>`;
+  adminSection('listings');
+}
+
+// ════════════════════════════════════════════════════════════
+//  ADMIN — SECTIONS
+// ════════════════════════════════════════════════════════════
+async function adminSection(sec) {
+  const area = document.getElementById('adminContent');
+  if (!area) return;
+  showLoading(true);
+
+  if (sec === 'listings') {
+    const { data, error } = await sb.from('listings').select('*, listing_images(image_url)').order('created_at', {ascending:false});
+    showLoading(false);
+    if (error) { area.innerHTML = `<p class="error-banner">${error.message}</p>`; return; }
+    area.innerHTML = `
+      <div class="admin-content-title">All Listings</div>
+      <button class="btn-add" onclick="openListingForm()">+ Add Listing</button>
+      <div style="overflow-x:auto">
+        <table class="a-table">
+          <thead><tr><th>Title</th><th>Category</th><th>Price</th><th>Status</th><th>Featured</th><th>Actions</th></tr></thead>
+          <tbody>${(data||[]).map(l => `<tr>
+            <td style="font-weight:500;max-width:200px">${esc(l.title)}</td>
+            <td style="color:var(--muted)">${l.category}</td>
+            <td>${l.category==='logistics' ? '—' : '₦'+Number(l.price).toLocaleString()}</td>
+            <td><span class="status-pill ${l.status==='available'?'status-avail':'status-sold'}">${l.status}</span></td>
+            <td>${l.is_featured ? '⭐' : '—'}</td>
+            <td>
+              <button class="tbl-btn tbl-edit" onclick="editListing('${l.id}')">Edit</button>
+              <button class="tbl-btn tbl-del"  onclick="deleteListing('${l.id}','${esc(l.title)}')">Delete</button>
+            </td>
+          </tr>`).join('')}</tbody>
+        </table>
+      </div>`;
+  }
+
+  if (sec === 'inquiries') {
+    const { data, error } = await sb.from('inquiries')
+      .select('*, listings(title)')
+      .order('created_at', {ascending:false});
+    showLoading(false);
+    if (error) { area.innerHTML = `<p class="error-banner">${error.message}</p>`; return; }
+    area.innerHTML = `
+      <div class="admin-content-title">Inquiries (${data?.length||0})</div>
+      ${(data||[]).length ? (data||[]).map(i => `
+        <div class="inq-item">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+            <div>
+              <div class="inq-name">${esc(i.name)}</div>
+              <div class="inq-meta">
+                ${esc(i.email)}${i.phone ? ' · '+esc(i.phone) : ''}
+                ${i.listings?.title ? ' · Re: '+esc(i.listings.title) : ''}
+                · ${new Date(i.created_at).toLocaleDateString('en-NG')}
+              </div>
+            </div>
+            <button class="tbl-btn tbl-del" onclick="deleteInquiry('${i.id}',this)">Delete</button>
+          </div>
+          <div class="inq-msg">${esc(i.message)}</div>
+        </div>`).join('')
+        : '<p class="empty-state">No inquiries yet.</p>'}`;
+  }
+}
+
+async function deleteInquiry(id, btn) {
+  if (!confirm('Delete this inquiry?')) return;
+  const { error } = await sb.from('inquiries').delete().eq('id', id);
+  if (error) { toast(error.message, true); return; }
+  btn.closest('.inq-item').remove();
+  toast('Inquiry deleted');
+}
+
+// ════════════════════════════════════════════════════════════
+//  LISTING FORM
+// ════════════════════════════════════════════════════════════
+let editingId      = null;
+let existingImages = []; // [{id, image_url}]
+
+function openListingForm(listing = null) {
+  editingId      = listing?.id || null;
+  existingImages = (listing?.listing_images || []).sort((a,b)=>a.sort_order-b.sort_order);
+  const isEdit   = !!listing;
+  const d        = listing?.details || {};
+
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-bg'; overlay.id = 'lModal';
+  overlay.innerHTML = `
+    <div class="modal-box">
+      <div class="modal-title">${isEdit ? 'Edit Listing' : 'New Listing'}</div>
+
+      <div class="modal-section-label">Basic Info</div>
+      <input  class="m-input" id="lTitle" placeholder="Listing title" value="${esc(listing?.title||'')}">
+      <select class="m-input" id="lCat" onchange="toggleDetFields()" style="margin-bottom:10px">
+        <option value="land"      ${listing?.category==='land'      ?'selected':''}>Land</option>
+        <option value="house"     ${listing?.category==='house'     ?'selected':''}>House</option>
+        <option value="estate"    ${listing?.category==='estate'    ?'selected':''}>Estate</option>
+        <option value="car"       ${listing?.category==='car'       ?'selected':''}>Vehicle</option>
+        <option value="logistics" ${listing?.category==='logistics' ?'selected':''}>Logistics</option>
+      </select>
+      <textarea class="m-input" id="lDesc" placeholder="Description" rows="3">${esc(listing?.description||'')}</textarea>
+      <input class="m-input" id="lPrice" type="number" placeholder="Price in ₦ (0 for logistics)" value="${listing?.price||''}">
+      <input class="m-input" id="lLoc"   placeholder="Location" value="${esc(listing?.location||'')}">
+      <select class="m-input" id="lStatus" style="margin-bottom:10px">
+        <option value="available" ${listing?.status==='available'||!listing?'selected':''}>Available</option>
+        <option value="sold"      ${listing?.status==='sold'           ?'selected':''}>Sold</option>
+      </select>
+      <label class="m-check-label">
+        <input type="checkbox" id="lFeat" ${listing?.is_featured?'checked':''}> Feature on homepage
+      </label>
+
+      <div id="detFields"></div>
+
+      <div class="modal-section-label">Photos (max 5)</div>
+      <div class="photo-grid" id="photoGrid"></div>
+      <div class="upload-area" onclick="document.getElementById('photoIn').click()">
+        <input type="file" id="photoIn" accept="image/jpeg,image/png,image/webp" onchange="uploadPhoto(event)">
+        <div class="upload-area-label">📷 Click to upload a photo (JPG, PNG, WebP · max 5MB)</div>
+        <div id="uploadProgress" class="upload-progress"></div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-cancel" onclick="closeListingForm()">Cancel</button>
+        <button class="btn-save" id="saveBtn" onclick="saveListing()">
+          ${isEdit ? 'Save Changes' : 'Create Listing'}
+        </button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  renderPhotoGrid();
+  toggleDetFields();
+  if (isEdit) setTimeout(() => fillDetFields(listing.category, d), 10);
+}
+
+function toggleDetFields() {
+  const cat = document.getElementById('lCat')?.value;
+  const c   = document.getElementById('detFields'); if (!c) return;
+  let h = `<div class="modal-section-label">Specifications</div>`;
+  if (cat==='land')      h += `<input class="m-input" id="dSize" placeholder="Size (e.g. 500 sqm)"><input class="m-input" id="dZone" placeholder="Zoning (e.g. Residential)"><input class="m-input" id="dTopo" placeholder="Topography (e.g. Flat)">`;
+  if (cat==='house')     h += `<input class="m-input" id="dBed" type="number" placeholder="Bedrooms"><input class="m-input" id="dBath" type="number" placeholder="Bathrooms"><input class="m-input" id="dSqft" placeholder="Square Feet"><input class="m-input" id="dYear" placeholder="Year Built">`;
+  if (cat==='estate')    h += `<input class="m-input" id="dUnits" placeholder="Total Units"><input class="m-input" id="dAmen" placeholder="Amenities (e.g. Gym, Pool)"><input class="m-input" id="dArea" placeholder="Total Area">`;
+  if (cat==='car')       h += `<input class="m-input" id="dMake" placeholder="Make (e.g. Toyota)"><input class="m-input" id="dModel" placeholder="Model (e.g. Camry)"><input class="m-input" id="dCarYear" type="number" placeholder="Year"><input class="m-input" id="dMile" placeholder="Mileage (e.g. 28,000 km)"><input class="m-input" id="dCond" placeholder="Condition (e.g. Foreign Used)">`;
+  if (cat==='logistics') h += `<input class="m-input" id="dSvcType" placeholder="Service Type (e.g. Haulage)"><input class="m-input" id="dCoverage" placeholder="Coverage Area"><input class="m-input" id="dCapacity" placeholder="Capacity / Fleet Size"><input class="m-input" id="dTurnaround" placeholder="Turnaround Time">`;
+  c.innerHTML = h;
+}
+
+function fillDetFields(cat, d) {
+  const sv = (id,v) => { const el=document.getElementById(id); if(el) el.value=v||''; };
+  if (cat==='land')      { sv('dSize',d.size); sv('dZone',d.zoning); sv('dTopo',d.topography); }
+  if (cat==='house')     { sv('dBed',d.bedrooms); sv('dBath',d.bathrooms); sv('dSqft',d.squareFeet); sv('dYear',d.yearBuilt); }
+  if (cat==='estate')    { sv('dUnits',d.totalUnits); sv('dAmen',d.amenities); sv('dArea',d.totalArea); }
+  if (cat==='car')       { sv('dMake',d.make); sv('dModel',d.model); sv('dCarYear',d.year); sv('dMile',d.mileage); sv('dCond',d.condition); }
+  if (cat==='logistics') { sv('dSvcType',d.serviceType); sv('dCoverage',d.coverage); sv('dCapacity',d.capacity); sv('dTurnaround',d.turnaround); }
+}
+
+function collectDetFields(cat) {
+  const gv = id => document.getElementById(id)?.value?.trim() || '';
+  if (cat==='land')      return {size:gv('dSize'),zoning:gv('dZone'),topography:gv('dTopo')};
+  if (cat==='house')     return {bedrooms:gv('dBed'),bathrooms:gv('dBath'),squareFeet:gv('dSqft'),yearBuilt:gv('dYear')};
+  if (cat==='estate')    return {totalUnits:gv('dUnits'),amenities:gv('dAmen'),totalArea:gv('dArea')};
+  if (cat==='car')       return {make:gv('dMake'),model:gv('dModel'),year:gv('dCarYear'),mileage:gv('dMile'),condition:gv('dCond')};
+  if (cat==='logistics') return {serviceType:gv('dSvcType'),coverage:gv('dCoverage'),capacity:gv('dCapacity'),turnaround:gv('dTurnaround')};
+  return {};
+}
+
+function renderPhotoGrid() {
+  const g = document.getElementById('photoGrid'); if (!g) return;
+  g.innerHTML = existingImages.map((img,i) => `
+    <div class="photo-item">
+      <img src="${esc(img.image_url)}" alt="Photo ${i+1}">
+      <button class="photo-rm" onclick="removePhoto('${img.id}',this)" title="Remove">×</button>
+    </div>`).join('');
+}
+
+async function uploadPhoto(event) {
+  const file = event.target.files[0]; if (!file) return;
+  if (existingImages.length >= 5) { toast('Maximum 5 photos per listing', true); event.target.value=''; return; }
+  if (file.size > 5*1024*1024)    { toast('Image must be under 5MB', true); event.target.value=''; return; }
+
+  const progress = document.getElementById('uploadProgress');
+  progress.textContent = 'Uploading…';
+
+  // If new listing, create it first so we have an ID for storage path
+  if (!editingId) {
+    const title = document.getElementById('lTitle').value.trim();
+    const loc   = document.getElementById('lLoc').value.trim();
+    if (!title || !loc) {
+      toast('Please fill in Title and Location first, then upload photos', true);
+      progress.textContent = ''; event.target.value=''; return;
+    }
+    await saveListing(true); // save without closing
+    if (!editingId) { progress.textContent=''; event.target.value=''; return; }
+  }
+
+  const ext      = file.name.split('.').pop().toLowerCase();
+  const filename = `${editingId}/${Date.now()}.${ext}`;
+
+  const { error: upErr } = await sb.storage.from('listing-images').upload(filename, file, { upsert: false });
+  if (upErr) { toast(upErr.message, true); progress.textContent=''; event.target.value=''; return; }
+
+  const { data: { publicUrl } } = sb.storage.from('listing-images').getPublicUrl(filename);
+
+  const sortOrder = existingImages.length;
+  const { data: imgRow, error: dbErr } = await sb.from('listing_images')
+    .insert({ listing_id: editingId, image_url: publicUrl, sort_order: sortOrder })
+    .select().single();
+
+  if (dbErr) { toast(dbErr.message, true); } else {
+    existingImages.push({ id: imgRow.id, image_url: publicUrl });
+    renderPhotoGrid();
+    toast('Photo uploaded ✓');
+  }
+  progress.textContent = '';
+  event.target.value   = '';
+}
+
+async function removePhoto(imgId, btn) {
+  if (!confirm('Remove this photo?')) return;
+  const { error } = await sb.from('listing_images').delete().eq('id', imgId);
+  if (error) { toast(error.message, true); return; }
+  existingImages = existingImages.filter(i => i.id != imgId);
+  btn.closest('.photo-item').remove();
+}
+
+async function saveListing(keepOpen = false) {
+  const title   = document.getElementById('lTitle').value.trim();
+  const cat     = document.getElementById('lCat').value;
+  const desc    = document.getElementById('lDesc').value.trim();
+  const price   = parseFloat(document.getElementById('lPrice').value) || 0;
+  const loc     = document.getElementById('lLoc').value.trim();
+  const status  = document.getElementById('lStatus').value;
+  const feat    = document.getElementById('lFeat').checked;
+  const details = collectDetFields(cat);
+  const btn     = document.getElementById('saveBtn');
+
+  if (!title) { toast('Title is required', true); return; }
+  if (!loc)   { toast('Location is required', true); return; }
+
+  if(btn) { btn.disabled=true; btn.textContent='Saving…'; }
+
+  const payload = { title, category:cat, description:desc, price, location:loc, status, is_featured:feat, details };
+
+  let error;
+  if (editingId) {
+    ({ error } = await sb.from('listings').update(payload).eq('id', editingId));
+  } else {
+    const { data, error: e } = await sb.from('listings').insert(payload).select().single();
+    error = e;
+    if (!error) editingId = data.id;
+  }
+
+  if(btn) { btn.disabled=false; btn.textContent = editingId && !keepOpen ? 'Save Changes' : 'Create Listing'; }
+
+  if (error) { toast(error.message, true); return; }
+
+  if (!keepOpen) {
+    toast(editingId ? 'Listing saved ✓' : 'Listing created ✓');
+    closeListingForm();
+    adminSection('listings');
+  }
+}
+
+function closeListingForm() { document.getElementById('lModal')?.remove(); }
+
+async function editListing(id) {
+  showLoading(true);
+  const { data, error } = await sb.from('listings').select('*, listing_images(id, image_url, sort_order)').eq('id', id).single();
+  showLoading(false);
+  if (error) { toast(error.message, true); return; }
+  openListingForm(data);
+}
+
+async function deleteListing(id, title) {
+  if (!confirm(`Delete "${title}" and all its photos?`)) return;
+  // Delete storage files first
+  const { data: imgs } = await sb.from('listing_images').select('image_url').eq('listing_id', id);
+  if (imgs?.length) {
+    const paths = imgs.map(i => i.image_url.split('/listing-images/')[1]).filter(Boolean);
+    if (paths.length) await sb.storage.from('listing-images').remove(paths);
+  }
+  const { error } = await sb.from('listings').delete().eq('id', id);
+  if (error) { toast(error.message, true); return; }
+  toast('Listing deleted');
+  adminSection('listings');
+}
+</script>
+</body>
+</html>
